@@ -379,8 +379,13 @@
     }
 
     .pcard-thumb {
-      position: relative; min-height: 180px; overflow: hidden;
+      position: relative; min-height: 210px; overflow: hidden;
     }
+    .thumb-svg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      opacity: 0.85; transition: opacity 0.4s;
+    }
+    .pcard:hover .thumb-svg { opacity: 1; }
     .pcard-thumb-bg {
       position: absolute; inset: 0;
       transition: transform 0.5s ease;
@@ -947,6 +952,95 @@
 // ─── PROJECTS DATA ───
 const PROJECTS = [
   {
+    svg: `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <style>
+          @keyframes rise{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+          @keyframes linedraw{from{stroke-dashoffset:400}to{stroke-dashoffset:0}}
+          @keyframes nfade{0%{opacity:0;transform:scale(0.5)}100%{opacity:1;transform:scale(1)}}
+          @keyframes pulse2{0%,100%{r:5}50%{r:7}}
+        </style>
+        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5aa8ff" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#5aa8ff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f0b429" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#f0b429" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- Candlestick chart -->
+      <g opacity="0.25">
+        <rect x="18" y="30" width="400" height="1" fill="#5aa8ff"/>
+        <rect x="18" y="70" width="400" height="1" fill="#5aa8ff"/>
+        <rect x="18" y="110" width="400" height="1" fill="#5aa8ff"/>
+        <rect x="18" y="150" width="400" height="1" fill="#5aa8ff"/>
+      </g>
+      <!-- Candles -->
+      <g style="animation:rise 0.6s ease-out both">
+        <rect x="30" y="120" width="12" height="40" fill="#f87171" rx="1"/>
+        <line x1="36" y1="110" x2="36" y2="170" stroke="#f87171" stroke-width="1.5"/>
+      </g>
+      <g style="animation:rise 0.6s 0.08s ease-out both">
+        <rect x="56" y="100" width="12" height="30" fill="#3dd68c" rx="1"/>
+        <line x1="62" y1="90" x2="62" y2="140" stroke="#3dd68c" stroke-width="1.5"/>
+      </g>
+      <g style="animation:rise 0.6s 0.16s ease-out both">
+        <rect x="82" y="110" width="12" height="35" fill="#f87171" rx="1"/>
+        <line x1="88" y1="98" x2="88" y2="155" stroke="#f87171" stroke-width="1.5"/>
+      </g>
+      <g style="animation:rise 0.6s 0.24s ease-out both">
+        <rect x="108" y="85" width="12" height="30" fill="#3dd68c" rx="1"/>
+        <line x1="114" y1="74" x2="114" y2="124" stroke="#3dd68c" stroke-width="1.5"/>
+      </g>
+      <g style="animation:rise 0.6s 0.32s ease-out both">
+        <rect x="134" y="70" width="12" height="25" fill="#3dd68c" rx="1"/>
+        <line x1="140" y1="60" x2="140" y2="102" stroke="#3dd68c" stroke-width="1.5"/>
+      </g>
+      <g style="animation:rise 0.6s 0.40s ease-out both">
+        <rect x="160" y="60" width="12" height="28" fill="#3dd68c" rx="1"/>
+        <line x1="166" y1="48" x2="166" y2="96" stroke="#3dd68c" stroke-width="1.5"/>
+      </g>
+      <g style="animation:rise 0.6s 0.48s ease-out both">
+        <rect x="186" y="75" width="12" height="32" fill="#f87171" rx="1"/>
+        <line x1="192" y1="64" x2="192" y2="116" stroke="#f87171" stroke-width="1.5"/>
+      </g>
+      <g style="animation:rise 0.6s 0.56s ease-out both">
+        <rect x="212" y="48" width="12" height="38" fill="#3dd68c" rx="1"/>
+        <line x1="218" y1="36" x2="218" y2="95" stroke="#3dd68c" stroke-width="1.5"/>
+      </g>
+      <g style="animation:rise 0.6s 0.64s ease-out both">
+        <rect x="238" y="38" width="12" height="30" fill="#3dd68c" rx="1"/>
+        <line x1="244" y1="26" x2="244" y2="76" stroke="#3dd68c" stroke-width="1.5"/>
+      </g>
+      <!-- AI annotation line -->
+      <path d="M 36 145 L 88 130 L 140 88 L 192 90 L 244 50" stroke="#f0b429" stroke-width="1.5" fill="none" stroke-dasharray="400" style="animation:linedraw 1.2s 0.5s ease-out forwards;stroke-dashoffset:400"/>
+      <!-- Agent nodes -->
+      <g style="animation:nfade 0.5s 1.2s ease-out both;opacity:0">
+        <circle cx="300" cy="60" r="5" fill="#5aa8ff" opacity="0.9"/>
+        <circle cx="340" cy="40" r="5" fill="#5aa8ff" opacity="0.9"/>
+        <circle cx="340" cy="80" r="5" fill="#f0b429" opacity="0.9"/>
+        <circle cx="370" cy="60" r="5" fill="#3dd68c" opacity="0.9"/>
+        <circle cx="300" cy="100" r="5" fill="#a78bfa" opacity="0.9"/>
+        <circle cx="300" cy="130" r="5" fill="#f87171" opacity="0.9"/>
+        <line x1="300" y1="60" x2="340" y2="40" stroke="#5aa8ff" stroke-width="0.8" opacity="0.5"/>
+        <line x1="300" y1="60" x2="340" y2="80" stroke="#f0b429" stroke-width="0.8" opacity="0.5"/>
+        <line x1="340" y1="40" x2="370" y2="60" stroke="#3dd68c" stroke-width="0.8" opacity="0.5"/>
+        <line x1="340" y1="80" x2="370" y2="60" stroke="#3dd68c" stroke-width="0.8" opacity="0.5"/>
+        <line x1="300" y1="100" x2="370" y2="60" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/>
+        <line x1="300" y1="130" x2="370" y2="60" stroke="#f87171" stroke-width="0.8" opacity="0.5"/>
+        <text x="276" y="64" fill="#5aa8ff" font-size="7" opacity="0.8" font-family="monospace">MOM</text>
+        <text x="276" y="104" fill="#a78bfa" font-size="7" opacity="0.8" font-family="monospace">LIQ</text>
+        <text x="276" y="134" fill="#f87171" font-size="7" opacity="0.8" font-family="monospace">RISK</text>
+        <text x="344" y="38" fill="#5aa8ff" font-size="7" opacity="0.8" font-family="monospace">CAT</text>
+        <text x="344" y="84" fill="#f0b429" font-size="7" opacity="0.8" font-family="monospace">TECH</text>
+        <text x="375" y="64" fill="#3dd68c" font-size="7" opacity="0.8" font-family="monospace">▶</text>
+      </g>
+      <!-- Labels -->
+      <text x="20" y="200" fill="#5aa8ff" font-size="9" opacity="0.5" font-family="monospace">NASDAQ-100 +0.59%</text>
+      <text x="145" y="200" fill="#f0b429" font-size="9" opacity="0.9" font-family="monospace">AI Portfolio +3.28%</text>
+      <text x="290" y="200" fill="#3dd68c" font-size="9" opacity="0.7" font-family="monospace">↑ 9 WEEKS LIVE</text>
+    </svg>`,
     id: 'agentic',
     cat: 'ai',
     thumbClass: 'thumb-ai',
@@ -981,6 +1075,76 @@ const PROJECTS = [
     ],
   },
   {
+    svg: `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <style>
+          @keyframes barUp{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+          @keyframes ftxt{from{opacity:0}to{opacity:1}}
+        </style>
+      </defs>
+      <!-- Model accuracy bar chart -->
+      <!-- Y labels -->
+      <text x="8" y="185" fill="#8499bb" font-size="7" font-family="monospace">0%</text>
+      <text x="8" y="140" fill="#8499bb" font-size="7" font-family="monospace">50%</text>
+      <text x="8" y="98" fill="#8499bb" font-size="7" font-family="monospace">80%</text>
+      <text x="8" y="62" fill="#8499bb" font-size="7" font-family="monospace">90%</text>
+      <!-- Grid lines -->
+      <line x1="35" y1="185" x2="395" y2="185" stroke="#2e3d5a" stroke-width="0.8"/>
+      <line x1="35" y1="140" x2="395" y2="140" stroke="#2e3d5a" stroke-width="0.5"/>
+      <line x1="35" y1="98" x2="395" y2="98" stroke="#2e3d5a" stroke-width="0.5"/>
+      <line x1="35" y1="62" x2="395" y2="62" stroke="#2e3d5a" stroke-width="0.5"/>
+      <!-- Bars: each model -->
+      <!-- CNN 73% -->
+      <g style="animation:barUp 0.5s ease-out both">
+        <rect x="42" y="120" width="36" height="65" fill="#5aa8ff" opacity="0.55" rx="2"/>
+      </g>
+      <text x="55" y="116" fill="#5aa8ff" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 0.5s both;opacity:0">73</text>
+      <text x="46" y="197" fill="#8499bb" font-size="7" font-family="monospace">CNN</text>
+      <!-- GRU 76% -->
+      <g style="animation:barUp 0.5s 0.1s ease-out both">
+        <rect x="90" y="110" width="36" height="75" fill="#5aa8ff" opacity="0.65" rx="2"/>
+      </g>
+      <text x="100" y="106" fill="#5aa8ff" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 0.6s both;opacity:0">76</text>
+      <text x="94" y="197" fill="#8499bb" font-size="7" font-family="monospace">GRU</text>
+      <!-- BiLSTM 79% -->
+      <g style="animation:barUp 0.5s 0.2s ease-out both">
+        <rect x="138" y="101" width="36" height="84" fill="#5aa8ff" opacity="0.75" rx="2"/>
+      </g>
+      <text x="147" y="97" fill="#5aa8ff" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 0.7s both;opacity:0">79</text>
+      <text x="138" y="197" fill="#8499bb" font-size="7" font-family="monospace">BiLSTM</text>
+      <!-- WangchanBERTa 86.57% — BEST -->
+      <g style="animation:barUp 0.5s 0.3s ease-out both">
+        <rect x="186" y="72" width="44" height="113" fill="#a78bfa" opacity="0.9" rx="2"/>
+        <!-- glow -->
+        <rect x="186" y="72" width="44" height="113" fill="none" stroke="#a78bfa" stroke-width="1.5" rx="2" opacity="0.6"/>
+      </g>
+      <text x="193" y="68" fill="#a78bfa" font-size="9" font-weight="bold" font-family="monospace" style="animation:ftxt 0.5s 0.8s both;opacity:0">86.6</text>
+      <text x="183" y="197" fill="#a78bfa" font-size="6.5" font-family="monospace">WangchanBERTa</text>
+      <!-- GPT-3.5 70% -->
+      <g style="animation:barUp 0.5s 0.4s ease-out both">
+        <rect x="244" y="127" width="36" height="58" fill="#f0b429" opacity="0.55" rx="2"/>
+      </g>
+      <text x="253" y="123" fill="#f0b429" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 0.9s both;opacity:0">70</text>
+      <text x="244" y="197" fill="#8499bb" font-size="7" font-family="monospace">GPT-3.5</text>
+      <!-- GPT-4o base 76% -->
+      <g style="animation:barUp 0.5s 0.5s ease-out both">
+        <rect x="292" y="110" width="36" height="75" fill="#f0b429" opacity="0.7" rx="2"/>
+      </g>
+      <text x="302" y="106" fill="#f0b429" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 1.0s both;opacity:0">76</text>
+      <text x="289" y="197" fill="#8499bb" font-size="7" font-family="monospace">GPT-4o</text>
+      <!-- Fine-tuned GPT-4o 81% F1 89.17% -->
+      <g style="animation:barUp 0.5s 0.6s ease-out both">
+        <rect x="340" y="99" width="40" height="86" fill="#f0b429" opacity="0.9" rx="2"/>
+        <rect x="340" y="99" width="40" height="86" fill="none" stroke="#f0b429" stroke-width="1.5" rx="2" opacity="0.5"/>
+      </g>
+      <text x="343" y="95" fill="#f0b429" font-size="8" font-family="monospace" style="animation:ftxt 0.5s 1.1s both;opacity:0">81.1</text>
+      <text x="335" y="197" fill="#f0b429" font-size="6.5" font-family="monospace">GPT-4o FT</text>
+      <!-- Legend -->
+      <rect x="42" y="14" width="10" height="10" fill="#a78bfa" rx="1"/>
+      <text x="56" y="23" fill="#a78bfa" font-size="8" font-family="monospace">Discriminative (Best: WangchanBERTa)</text>
+      <rect x="220" y="14" width="10" height="10" fill="#f0b429" rx="1"/>
+      <text x="234" y="23" fill="#f0b429" font-size="8" font-family="monospace">Generative (GPT)</text>
+    </svg>`,
     id: 'thaisarc',
     cat: 'nlp',
     thumbClass: 'thumb-nlp',
@@ -1015,6 +1179,61 @@ const PROJECTS = [
     ],
   },
   {
+    svg: `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <style>@keyframes ldraw{from{stroke-dashoffset:800}to{stroke-dashoffset:0}}</style>
+        <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f0b429" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#f0b429" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="pl" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5aa8ff" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#5aa8ff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- Grid -->
+      <line x1="30" y1="40" x2="390" y2="40" stroke="#2e3d5a" stroke-width="0.6"/>
+      <line x1="30" y1="80" x2="390" y2="80" stroke="#2e3d5a" stroke-width="0.6"/>
+      <line x1="30" y1="120" x2="390" y2="120" stroke="#2e3d5a" stroke-width="0.6"/>
+      <line x1="30" y1="160" x2="390" y2="160" stroke="#2e3d5a" stroke-width="0.6"/>
+      <!-- Actual price line (gold) -->
+      <path d="M 30 140 C 50 130, 70 145, 90 120 C 110 95, 120 110, 140 85 C 160 60, 175 70, 190 55 C 205 40, 215 65, 230 50 C 245 35, 260 60, 275 45 C 290 30, 310 55, 330 40 C 350 25, 370 50, 390 38"
+            fill="none" stroke="#f0b429" stroke-width="2.2"
+            stroke-dasharray="800"
+            style="animation:ldraw 2s ease-out forwards"/>
+      <!-- Fill under actual -->
+      <path d="M 30 140 C 50 130, 70 145, 90 120 C 110 95, 120 110, 140 85 C 160 60, 175 70, 190 55 C 205 40, 215 65, 230 50 C 245 35, 260 60, 275 45 C 290 30, 310 55, 330 40 C 350 25, 370 50, 390 38 L 390 175 L 30 175 Z"
+            fill="url(#bg1)" opacity="0.7"/>
+      <!-- Prophet forecast (cyan) -->
+      <path d="M 30 145 C 55 132, 75 148, 95 124 C 115 100, 124 114, 144 90 C 162 66, 177 74, 192 60 C 207 45, 218 68, 233 54 C 247 39, 263 63, 278 48 C 293 33, 312 58, 332 43 C 352 28, 372 53, 392 41"
+            fill="none" stroke="#5aa8ff" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.9"
+            stroke-dashoffset="0"
+            style="animation:ldraw 2s 0.4s ease-out forwards;stroke-dashoffset:800"/>
+      <!-- Model comparison badges -->
+      <g style="animation:nfade 0.4s 2s ease-out both;opacity:0">
+        <rect x="30" y="14" width="65" height="16" rx="2" fill="rgba(240,180,41,0.12)" stroke="rgba(240,180,41,0.3)" stroke-width="0.8"/>
+        <text x="36" y="25" fill="#f0b429" font-size="8" font-family="monospace">■ Actual BTC</text>
+        <rect x="105" y="14" width="72" height="16" rx="2" fill="rgba(90,168,255,0.12)" stroke="rgba(90,168,255,0.3)" stroke-width="0.8"/>
+        <text x="111" y="25" fill="#5aa8ff" font-size="8" font-family="monospace">- - Prophet</text>
+        <text x="188" y="25" fill="#3dd68c" font-size="8" font-family="monospace">MAPE ~0.29</text>
+      </g>
+      <!-- Model bars bottom -->
+      <rect x="30" y="175" width="52" height="16" rx="1" fill="rgba(248,113,113,0.18)" stroke="rgba(248,113,113,0.3)" stroke-width="0.7"/>
+      <text x="36" y="186" fill="#f87171" font-size="7.5" font-family="monospace">Lin.Reg.</text>
+      <rect x="90" y="175" width="42" height="16" rx="1" fill="rgba(240,180,41,0.35)" stroke="rgba(240,180,41,0.5)" stroke-width="0.7"/>
+      <text x="96" y="186" fill="#f0b429" font-size="7.5" font-family="monospace">Prophet★</text>
+      <rect x="140" y="175" width="54" height="16" rx="1" fill="rgba(90,168,255,0.18)" stroke="rgba(90,168,255,0.3)" stroke-width="0.7"/>
+      <text x="146" y="186" fill="#5aa8ff" font-size="7.5" font-family="monospace">XGBoost</text>
+      <rect x="202" y="175" width="28" height="16" rx="1" fill="rgba(90,168,255,0.18)" stroke="rgba(90,168,255,0.3)" stroke-width="0.7"/>
+      <text x="208" y="186" fill="#5aa8ff" font-size="7.5" font-family="monospace">RF</text>
+      <rect x="238" y="175" width="32" height="16" rx="1" fill="rgba(167,139,250,0.18)" stroke="rgba(167,139,250,0.3)" stroke-width="0.7"/>
+      <text x="244" y="186" fill="#a78bfa" font-size="7.5" font-family="monospace">LSTM</text>
+      <text x="285" y="186" fill="#8499bb" font-size="7" font-family="monospace">5-model benchmark</text>
+      <!-- Airflow icon placeholder -->
+      <text x="352" y="30" fill="#3dd68c" font-size="8" font-family="monospace" opacity="0.8">⟳ Airflow</text>
+      <text x="352" y="44" fill="#8499bb" font-size="7" font-family="monospace" opacity="0.7">every 5 min</text>
+      <text x="352" y="56" fill="#8499bb" font-size="7" font-family="monospace" opacity="0.7">on EC2</text>
+    </svg>`,
     id: 'bitcoin',
     cat: 'ts',
     thumbClass: 'thumb-btc',
@@ -1049,6 +1268,81 @@ const PROJECTS = [
     ],
   },
   {
+    svg: `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <style>
+          @keyframes flow{0%{stroke-dashoffset:24}100%{stroke-dashoffset:0}}
+          @keyframes blink2{0%,100%{opacity:1}50%{opacity:0.3}}
+          @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+        </style>
+      </defs>
+      <!-- Pipeline architecture diagram -->
+      <!-- KAFKA block -->
+      <rect x="18" y="70" width="72" height="72" rx="4" fill="rgba(61,214,140,0.1)" stroke="#3dd68c" stroke-width="1.2"/>
+      <text x="54" y="94" fill="#3dd68c" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">KAFKA</text>
+      <text x="54" y="107" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">3 brokers</text>
+      <text x="54" y="118" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">5 partitions</text>
+      <text x="54" y="129" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">8 topics</text>
+      <!-- animated dots on kafka -->
+      <circle cx="22" cy="74" r="3" fill="#3dd68c" opacity="0.8" style="animation:blink2 1.2s 0.0s infinite"/>
+      <circle cx="30" cy="74" r="3" fill="#3dd68c" opacity="0.8" style="animation:blink2 1.2s 0.4s infinite"/>
+      <circle cx="38" cy="74" r="3" fill="#3dd68c" opacity="0.8" style="animation:blink2 1.2s 0.8s infinite"/>
+      <!-- Arrow KAFKA → ksqlDB -->
+      <line x1="90" y1="106" x2="118" y2="106" stroke="#3dd68c" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow 0.8s linear infinite"/>
+      <polygon points="118,102 126,106 118,110" fill="#3dd68c"/>
+      <!-- ksqlDB block -->
+      <rect x="126" y="58" width="80" height="96" rx="4" fill="rgba(90,168,255,0.1)" stroke="#5aa8ff" stroke-width="1.2"/>
+      <text x="166" y="80" fill="#5aa8ff" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">ksqlDB</text>
+      <rect x="134" y="86" width="64" height="13" rx="2" fill="rgba(90,168,255,0.15)"/>
+      <text x="166" y="96" fill="#5aa8ff" font-size="7" font-family="monospace" text-anchor="middle">TRANSFORM</text>
+      <rect x="134" y="103" width="64" height="13" rx="2" fill="rgba(90,168,255,0.15)"/>
+      <text x="166" y="113" fill="#5aa8ff" font-size="7" font-family="monospace" text-anchor="middle">JOIN + ENRICH</text>
+      <rect x="134" y="120" width="64" height="13" rx="2" fill="rgba(90,168,255,0.15)"/>
+      <text x="166" y="130" fill="#5aa8ff" font-size="7" font-family="monospace" text-anchor="middle">WINDOWING</text>
+      <text x="134" y="146" fill="#8499bb" font-size="6.5" font-family="monospace">tumble·hop·session</text>
+      <!-- Arrow ksqlDB → Pinot -->
+      <line x1="206" y1="106" x2="234" y2="106" stroke="#5aa8ff" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow 0.8s 0.3s linear infinite"/>
+      <polygon points="234,102 242,106 234,110" fill="#5aa8ff"/>
+      <!-- Pinot block -->
+      <rect x="242" y="70" width="72" height="72" rx="4" fill="rgba(167,139,250,0.1)" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="278" y="94" fill="#a78bfa" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">PINOT</text>
+      <text x="278" y="107" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">Real-Time</text>
+      <text x="278" y="118" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">OLAP</text>
+      <text x="278" y="129" fill="#3dd68c" font-size="7" font-family="monospace" text-anchor="middle">&lt;1s query</text>
+      <!-- Arrow Pinot → Streamlit -->
+      <line x1="314" y1="106" x2="342" y2="106" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow 0.8s 0.6s linear infinite"/>
+      <polygon points="342,102 350,106 342,110" fill="#a78bfa"/>
+      <!-- Streamlit block -->
+      <rect x="350" y="70" width="38" height="72" rx="4" fill="rgba(240,180,41,0.1)" stroke="#f0b429" stroke-width="1.2"/>
+      <text x="369" y="94" fill="#f0b429" font-size="7.5" font-family="monospace" text-anchor="middle" font-weight="bold">STRM</text>
+      <text x="369" y="108" fill="#8499bb" font-size="6.5" font-family="monospace" text-anchor="middle">live</text>
+      <text x="369" y="119" fill="#8499bb" font-size="6.5" font-family="monospace" text-anchor="middle">dash</text>
+      <circle cx="369" cy="130" r="4" fill="#f0b429" opacity="0.7" style="animation:blink2 1s infinite"/>
+      <!-- Data source labels top -->
+      <text x="20" y="58" fill="#3dd68c" font-size="7.5" font-family="monospace" style="animation:fadeIn 0.5s 0.2s both;opacity:0">▶ PageView Events</text>
+      <text x="20" y="46" fill="#8499bb" font-size="7" font-family="monospace" style="animation:fadeIn 0.5s 0.4s both;opacity:0">▶ User Demographics</text>
+      <text x="20" y="34" fill="#8499bb" font-size="7" font-family="monospace" style="animation:fadeIn 0.5s 0.6s both;opacity:0">▶ Regional Reference</text>
+      <!-- Mini bar chart bottom (dashboard preview) -->
+      <text x="18" y="175" fill="#f0b429" font-size="8" font-family="monospace">Dashboard Preview →</text>
+      <rect x="18" y="180" width="20" height="24" rx="1" fill="rgba(90,168,255,0.5)"/>
+      <rect x="42" y="188" width="20" height="16" rx="1" fill="rgba(90,168,255,0.4)"/>
+      <rect x="66" y="183" width="20" height="21" rx="1" fill="rgba(90,168,255,0.55)"/>
+      <rect x="90" y="178" width="20" height="26" rx="1" fill="rgba(61,214,140,0.5)"/>
+      <rect x="114" y="185" width="20" height="19" rx="1" fill="rgba(90,168,255,0.35)"/>
+      <rect x="138" y="180" width="20" height="24" rx="1" fill="rgba(240,180,41,0.45)"/>
+      <!-- Region labels -->
+      <text x="20" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">TH</text>
+      <text x="44" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">CN</text>
+      <text x="68" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">JP</text>
+      <text x="92" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">US</text>
+      <text x="116" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">EU</text>
+      <text x="140" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">SG</text>
+      <!-- rolling line -->
+      <path d="M 180 197 C 195 188, 210 195, 225 185 C 240 175, 255 182, 270 172 C 285 162, 300 170, 315 160 C 330 150, 345 158, 360 148 C 375 138, 390 145, 400 138"
+            fill="none" stroke="#3dd68c" stroke-width="1.5" opacity="0.8" stroke-dasharray="3,2"
+            style="animation:flow 1s linear infinite"/>
+      <text x="180" y="210" fill="#3dd68c" font-size="6.5" font-family="monospace">5-min rolling trend</text>
+    </svg>`,
     id: 'streaming',
     cat: 'data',
     thumbClass: 'thumb-stream',
@@ -1090,9 +1384,11 @@ grid.innerHTML = PROJECTS.map(p => `
     <div class="pcard-thumb">
       <div class="pcard-thumb-bg ${p.thumbClass}"></div>
       <div class="thumb-grid-overlay"></div>
+      ${p.svg ? `<div class="thumb-svg-wrap" style="position:absolute;inset:0;overflow:hidden">${p.svg}</div>` : `
       <div class="thumb-orb o1" style="background:radial-gradient(circle,${p.orb1},transparent 65%)"></div>
       <div class="thumb-orb o2" style="background:radial-gradient(circle,${p.orb2},transparent 65%)"></div>
-      <div class="thumb-content">
+      `}
+      <div class="thumb-content" style="position:relative;z-index:2">
         <div class="thumb-badge">${p.badge}</div>
         <div class="thumb-metrics">${p.metrics.map(m=>`<span class="thumb-metric">${m}</span>`).join('')}</div>
       </div>
