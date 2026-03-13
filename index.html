@@ -347,7 +347,7 @@ footer p{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t2);
       <span class="hn-l1">Kunakorn</span>
       <span class="hn-l2">Pruksakorn</span>
     </h1>
-    <div class="hero-nick">aka <span>Mart</span></div>
+    <div class="hero-nick">aka <span>Marty</span></div>
     <div class="hero-typing">
       <span class="ty-bracket">[</span>
       <span class="ty-txt" id="typeEl"></span><span class="ty-cur">_</span>
@@ -666,7 +666,7 @@ function drawConn(w,h){
 })();
 
 /* ── TYPING ── */
-const roles=['Automation Engineer','Industrial AI Builder','AI / ML Engineer','Data Systems for Manufacturing','LLM & Agentic AI Builder'];
+const roles=['Electrical & Automation Engineer','Industrial AI Builder','AI / ML Engineer','Data Systems for Manufacturing','LLM & Agentic AI Builder'];
 let ri=0,ci=0,del=false;
 const typEl=document.getElementById('typeEl');
 function doType(){const w=roles[ri];if(!del){typEl.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(doType,2000);return;}setTimeout(doType,72);}else{typEl.textContent=w.slice(0,--ci);if(ci===0){del=false;ri=(ri+1)%roles.length;setTimeout(doType,450);return;}setTimeout(doType,40);}}
