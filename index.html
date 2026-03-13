@@ -1,646 +1,585 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kunakorn Pruksakorn — AI · Data · Automation</title>
-  <meta name="description" content="Portfolio of Kunakorn Pruksakorn — Automation Engineer and AI/Data Science builder."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Kunakorn Pruksakorn — Automation · AI · Data</title>
+<meta name="description" content="Kunakorn Pruksakorn — Automation Engineer and AI systems builder. M.S. Data Science, NIDA."/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════
+   ROOT + RESET
+════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
-    :root {
-      --bg:     #04060f;
-      --bg2:    #070b19;
-      --bg3:    #0b1225;
-      --surface: #0e1830;
-      --s2:     #13213d;
-      --border: rgba(99,170,255,0.12);
-      --border2: rgba(99,170,255,0.22);
-      --gold:   #f0b429;
-      --gold2:  #ffd97d;
-      --cyan:   #5aa8ff;
-      --cyan2:  #a8d4ff;
-      --cyan3:  #d4eaff;
-      --green:  #3dd68c;
-      --red:    #f87171;
-      --purple: #a78bfa;
-      --text:   #e4edff;
-      --text2:  #8499bb;
-      --text3:  #2e3d5a;
-    }
+:root{
+  --bg0:#030509;--bg1:#060a14;--bg2:#080d1c;--bg3:#0b1224;--su:#0f1930;--su2:#141f38;
+  --b0:rgba(82,158,255,.07);--b1:rgba(82,158,255,.15);--b2:rgba(82,158,255,.28);
+  --cyan:#529eff;--c2:#8dc4ff;--c3:#c5e2ff;
+  --gold:#edb227;--g2:#fdd163;
+  --green:#2ecb7a;--pur:#9b7df8;--red:#f06f6f;
+  --t0:#dde8ff;--t1:#7a94bb;--t2:#2e4060;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease2:cubic-bezier(.34,1.56,.64,1);
+}
 
-    html { scroll-behavior: smooth; }
+html,body{overflow-x:hidden}
+body{
+  background:var(--bg0);color:var(--t0);
+  font-family:'DM Sans',system-ui,sans-serif;
+  line-height:1.6;cursor:none;
+}
+a{text-decoration:none;color:inherit}
+@media(hover:none){body{cursor:auto}#curdot,#curring{display:none!important}}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', system-ui, sans-serif;
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
+/* ════════════════════════════════════════════════════════════
+   GRAIN NOISE
+════════════════════════════════════════════════════════════ */
+#grain{
+  position:fixed;inset:0;z-index:9800;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:200px 200px;
+  animation:grainshift 8s steps(10) infinite;
+}
+@keyframes grainshift{0%{transform:translate(0,0)}10%{transform:translate(-1%,-2%)}20%{transform:translate(2%,1%)}30%{transform:translate(-1%,3%)}40%{transform:translate(3%,-1%)}50%{transform:translate(-2%,2%)}60%{transform:translate(1%,-3%)}70%{transform:translate(-3%,1%)}80%{transform:translate(2%,-2%)}90%{transform:translate(-1%,3%)}100%{transform:translate(0,0)}}
 
-    #canvas {
-      position: fixed; inset: 0; z-index: 0;
-      pointer-events: none;
-    }
+/* ════════════════════════════════════════════════════════════
+   CUSTOM CURSOR
+════════════════════════════════════════════════════════════ */
+#curdot{
+  position:fixed;width:8px;height:8px;background:var(--cyan);border-radius:50%;
+  pointer-events:none;z-index:9900;transform:translate(-50%,-50%);
+  box-shadow:0 0 12px var(--cyan);transition:background .2s,transform .1s;
+}
+#curring{
+  position:fixed;width:38px;height:38px;border:1.5px solid rgba(82,158,255,.42);
+  border-radius:50%;pointer-events:none;z-index:9900;transform:translate(-50%,-50%);
+  transition:width .22s var(--ease),height .22s var(--ease),border-color .22s,background .22s;
+}
+#curring.hov{width:56px;height:56px;border-color:var(--gold);background:rgba(237,178,39,.04)}
+#curring.click{width:20px;height:20px;opacity:.6}
 
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 56px;
-      backdrop-filter: blur(24px) saturate(1.4);
-      background: rgba(4,6,15,0.72);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px;
-      color: var(--cyan); text-decoration: none; letter-spacing: -0.03em;
-    }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a {
-      font-family: 'Space Mono', monospace; font-size: 10px;
-      color: var(--text2); text-decoration: none;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      transition: color 0.25s;
-    }
-    .nav-links a:hover { color: var(--cyan); }
+/* ════════════════════════════════════════════════════════════
+   LOADER
+════════════════════════════════════════════════════════════ */
+#loader{
+  position:fixed;inset:0;z-index:9500;background:var(--bg0);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  transition:opacity 1s var(--ease),visibility 1s;
+}
+#loader.out{opacity:0;visibility:hidden}
+.ld-name{font-family:'Syne',sans-serif;font-weight:800;font-size:88px;letter-spacing:-.07em;display:flex;overflow:hidden;line-height:.85;padding-bottom:.1em}
+.ld-c{display:inline-block;transform:translateY(110%);transition:transform .65s var(--ease)}
+.ld-c.show{transform:translateY(0)}
+.ld-c.dot{color:var(--gold)}
+.ld-bar{width:220px;height:1px;background:rgba(82,158,255,.1);position:relative;overflow:hidden}
+.ld-bar::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:linear-gradient(90deg,transparent,var(--cyan),var(--gold),transparent);animation:ldbar 1.4s ease-in-out infinite}
+@keyframes ldbar{0%{left:-100%}100%{left:110%}}
+.ld-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--t2);letter-spacing:.22em;text-transform:uppercase}
 
-    /* ─── HERO ─── */
-    #hero {
-      min-height: 100vh; display: flex; flex-direction: column;
-      justify-content: center; padding: 130px 56px 80px;
-      position: relative; z-index: 1;
-    }
+/* ════════════════════════════════════════════════════════════
+   PROGRESS BAR
+════════════════════════════════════════════════════════════ */
+#progress{
+  position:fixed;top:0;left:0;height:2px;width:0;z-index:9000;
+  background:linear-gradient(90deg,var(--cyan),var(--pur),var(--gold));
+  box-shadow:0 0 10px var(--cyan);transition:width .1s linear;
+}
 
-    .hero-tag {
-      font-family: 'Space Mono', monospace; font-size: 10px;
-      color: var(--green); letter-spacing: 0.2em; text-transform: uppercase;
-      margin-bottom: 28px; display: flex; align-items: center; gap: 10px;
-      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
-    }
-    .hero-tag-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 10px var(--green), 0 0 20px rgba(61,214,140,0.4);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.3);opacity:0.7} }
+/* ════════════════════════════════════════════════════════════
+   CANVAS BACKGROUND
+════════════════════════════════════════════════════════════ */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-    .hero-name {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(44px, 9vw, 120px);
-      line-height: 0.9; letter-spacing: -0.04em;
-      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
-    }
-    .hero-name .line1 { color: var(--text); display: block; }
-    .hero-name .line2 {
-      display: block;
-      background: linear-gradient(120deg, var(--cyan) 0%, var(--gold) 60%, var(--cyan2) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      background-size: 200% 100%;
-      animation: fadeUp 0.8s 0.4s forwards, gradShift 6s 2s ease-in-out infinite alternate;
-    }
-    @keyframes gradShift { from{background-position:0% 50%} to{background-position:100% 50%} }
+/* ════════════════════════════════════════════════════════════
+   TICKER STRIP
+════════════════════════════════════════════════════════════ */
+#ticker{
+  position:fixed;top:0;left:0;right:0;z-index:600;height:28px;
+  background:rgba(3,5,9,.85);border-bottom:1px solid var(--b0);
+  overflow:hidden;display:flex;align-items:center;
+  backdrop-filter:blur(12px);
+}
+.ticker-inner{
+  display:flex;align-items:center;gap:0;white-space:nowrap;
+  animation:tickscroll 36s linear infinite;
+}
+@keyframes tickscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tick-item{
+  display:inline-flex;align-items:center;gap:8px;padding:0 28px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;
+  border-right:1px solid var(--b0);
+}
+.tick-key{color:var(--t2)}
+.tick-val{color:var(--cyan)}
+.tick-val.g{color:var(--gold)}
+.tick-val.gr{color:var(--green)}
+.tick-sep{color:var(--t2);opacity:.3;margin:0 4px}
 
-    .hero-subtitle {
-      font-family: 'Space Mono', monospace; font-size: 12px;
-      color: var(--text2); margin-top: 24px;
-      letter-spacing: 0.06em; line-height: 2;
-      opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
-    }
-    .hero-subtitle .hl { color: var(--gold); }
+/* ════════════════════════════════════════════════════════════
+   NAV
+════════════════════════════════════════════════════════════ */
+nav{
+  position:fixed;top:28px;left:0;right:0;z-index:500;
+  padding:16px 56px;display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(28px) saturate(1.8);
+  background:rgba(3,5,9,.62);
+  border-bottom:1px solid var(--b0);
+  transition:padding .4s;
+}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--cyan);letter-spacing:-.05em;display:flex;align-items:center;gap:9px}
+.nbpulse{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);animation:nbp 2.5s ease-in-out infinite}
+@keyframes nbp{0%,100%{box-shadow:0 0 8px var(--gold)}50%{box-shadow:0 0 20px var(--gold),0 0 38px rgba(237,178,39,.3)}}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t1);
+  letter-spacing:.1em;text-transform:uppercase;
+  position:relative;padding-bottom:4px;transition:color .22s;
+}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease)}
+.nav-links a:hover,.nav-links a.active{color:var(--cyan)}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-cta{
+  font-family:'JetBrains Mono',monospace;font-size:10px;padding:10px 22px;
+  border:1px solid var(--b2);color:var(--c2);letter-spacing:.09em;cursor:pointer;
+  background:rgba(82,158,255,.04);transition:all .28s var(--ease);position:relative;overflow:hidden;
+}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);z-index:0}
+.nav-cta span{position:relative;z-index:1;transition:color .3s}
+.nav-cta:hover::before{transform:scaleX(1)}
+.nav-cta:hover span{color:var(--bg0)}
 
-    .hero-desc {
-      font-size: 16px; color: var(--text2);
-      max-width: 520px; line-height: 1.85; margin-top: 18px;
-      opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
-    }
-    .hero-desc strong { color: var(--text); font-weight: 500; }
+/* ════════════════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════════════════ */
+#hero{
+  min-height:100vh;display:grid;grid-template-columns:1fr 390px;gap:40px;
+  align-items:center;padding:160px 56px 80px;
+  position:relative;z-index:1;
+}
 
-    .hero-btns {
-      display: flex; gap: 14px; margin-top: 40px; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.8s 1.0s forwards;
-    }
-    .btn {
-      padding: 13px 26px; font-family: 'Space Mono', monospace;
-      font-size: 11px; letter-spacing: 0.08em; text-decoration: none;
-      transition: all 0.28s cubic-bezier(0.16,1,0.3,1);
-      display: inline-flex; align-items: center; gap: 8px;
-      cursor: pointer; border: none;
-    }
-    .btn-primary {
-      background: var(--cyan); color: var(--bg); font-weight: 700;
-      clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
-    }
-    .btn-primary:hover {
-      background: var(--cyan2); transform: translateY(-2px);
-      box-shadow: 0 12px 36px rgba(90,168,255,0.35);
-    }
-    .btn-ghost {
-      border: 1px solid var(--border); color: var(--text2);
-      background: rgba(90,168,255,0.04);
-    }
-    .btn-ghost:hover {
-      border-color: var(--cyan2); color: var(--cyan2);
-      transform: translateY(-2px); background: rgba(90,168,255,0.08);
-    }
+/* Left */
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);
+  letter-spacing:.2em;text-transform:uppercase;
+  opacity:0;animation:fadeup .8s .3s var(--ease) forwards;
+}
+.eye-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 0 0 rgba(46,203,122,.4);animation:livepin 2s infinite;
+}
+@keyframes livepin{0%{box-shadow:0 0 0 0 rgba(46,203,122,.4)}70%{box-shadow:0 0 0 12px transparent}100%{box-shadow:0 0 0 0 transparent}}
 
-    .hero-stats {
-      display: flex; gap: 44px; margin-top: 64px;
-      padding-top: 40px; border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.8s 1.2s forwards;
-    }
-    .stat-num {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 38px; color: var(--cyan); line-height: 1;
-    }
-    .stat-num.gold { color: var(--gold); }
-    .stat-num.green { color: var(--green); }
-    .stat-label {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text3); letter-spacing: 0.14em;
-      text-transform: uppercase; margin-top: 7px;
-    }
+.hero-name{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(36px,9.2vw,104px);
+  line-height:.88;letter-spacing:-.055em;
+  overflow:visible;padding-bottom:.22em;
+  opacity:0;animation:fadeup .9s .5s var(--ease) forwards;
+}
+.hn-l1{display:block;color:var(--t0)}
+.hn-l2{
+  display:block;
+  background:linear-gradient(128deg,var(--cyan) 0%,var(--pur) 42%,var(--gold) 100%);
+  background-size:300% 100%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradshift 7s 2s ease-in-out infinite alternate;
+}
+@keyframes gradshift{from{background-position:0%}to{background-position:100%}}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(36px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+/* hover glitch on surname */
+.hero-name:hover .hn-l2{animation:gradshift 7s ease-in-out infinite alternate,nameglitch 3s .5s infinite}
+@keyframes nameglitch{
+  0%,93%,100%{filter:none;transform:none}
+  94%{filter:blur(.5px);transform:skewX(-1deg) translateX(2px)}
+  96%{filter:none;transform:skewX(.5deg) translateX(-1px)}
+  98%{filter:blur(.5px);transform:skewX(1deg) translateX(1px)}
+}
 
-    /* ─── SCROLL REVEAL ─── */
-    .reveal {
-      opacity: 0; transform: translateY(32px);
-      transition: all 0.75s cubic-bezier(0.16,1,0.3,1);
-    }
-    .reveal.vis { opacity: 1; transform: translateY(0); }
-    .reveal.delay-1 { transition-delay: 0.1s; }
-    .reveal.delay-2 { transition-delay: 0.2s; }
-    .reveal.delay-3 { transition-delay: 0.3s; }
+.hero-typing{
+  font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t1);
+  margin-top:20px;min-height:22px;display:flex;align-items:center;gap:10px;
+  opacity:0;animation:fadeup .8s .9s var(--ease) forwards;
+}
+.ty-bracket{color:var(--cyan);opacity:.5;font-size:15px}
+.ty-txt{color:var(--c2)}
+.ty-cur{color:var(--cyan);animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
 
-    /* ─── SECTIONS ─── */
-    section { padding: 100px 56px; position: relative; z-index: 1; }
+.hero-bio{
+  font-size:15px;color:var(--t1);max-width:510px;line-height:1.92;
+  margin-top:18px;opacity:0;animation:fadeup .8s 1.1s var(--ease) forwards;
+}
+.hero-bio strong{color:var(--t0);font-weight:500}
 
-    .sec-eyebrow {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--cyan); letter-spacing: 0.25em; text-transform: uppercase;
-      margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
-    }
-    .sec-eyebrow::before {
-      content: ''; width: 32px; height: 1px; background: var(--cyan);
-    }
-    .sec-title {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(32px, 4.5vw, 58px);
-      letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 52px;
-    }
-    .sec-title em { font-style: italic; font-weight: 400; color: var(--text2); }
+.hero-cta{
+  display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;
+  opacity:0;animation:fadeup .8s 1.3s var(--ease) forwards;
+}
+.btn{
+  padding:13px 26px;font-family:'JetBrains Mono',monospace;font-size:10.5px;
+  letter-spacing:.08em;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  transition:all .3s var(--ease);position:relative;overflow:hidden;
+}
+.btn-solid{background:var(--cyan);color:var(--bg0);font-weight:700;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%)}
+.btn-solid:hover{background:var(--c2);transform:translateY(-2px);box-shadow:0 16px 40px rgba(82,158,255,.35)}
+.btn-ghost{border:1px solid var(--b1);color:var(--t1);background:rgba(82,158,255,.03)}
+.btn-ghost:hover{border-color:var(--b2);color:var(--c2);background:rgba(82,158,255,.08);transform:translateY(-2px)}
+.btn-yt-en{border:1px solid rgba(237,178,39,.28);color:var(--gold);background:rgba(237,178,39,.04)}
+.btn-yt-en:hover{border-color:var(--gold);background:rgba(237,178,39,.1);transform:translateY(-2px)}
+.btn-yt-th{border:1px solid rgba(46,203,122,.28);color:var(--green);background:rgba(46,203,122,.04)}
+.btn-yt-th:hover{border-color:var(--green);background:rgba(46,203,122,.1);transform:translateY(-2px)}
 
-    /* ─── ABOUT ─── */
-    #about { background: var(--bg2); }
-    .about-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; }
-    .about-text p { color: var(--text2); font-size: 15px; line-height: 1.95; margin-bottom: 16px; }
-    .about-text strong { color: var(--text); font-weight: 500; }
-    .about-text .hl { color: var(--cyan); }
+.hero-nums{
+  display:flex;gap:36px;margin-top:52px;padding-top:34px;
+  border-top:1px solid var(--b0);flex-wrap:wrap;
+  opacity:0;animation:fadeup .8s 1.5s var(--ease) forwards;
+}
+.hn-val{font-family:'Syne',sans-serif;font-weight:800;font-size:33px;color:var(--cyan);line-height:1}
+.hn-val.g{color:var(--gold)}.hn-val.gr{color:var(--green)}
+.hn-lbl{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t2);letter-spacing:.15em;text-transform:uppercase;margin-top:6px}
 
-    .about-cards { display: flex; flex-direction: column; gap: 3px; }
-    .acard {
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 22px 26px; position: relative; overflow: hidden;
-      transition: all 0.3s; cursor: default;
-    }
-    .acard::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-      background: linear-gradient(180deg, var(--cyan), var(--gold));
-      transform: scaleY(0); transition: transform 0.3s;
-    }
-    .acard:hover::before { transform: scaleY(1); }
-    .acard:hover { background: var(--s2); }
-    .acard-num {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 36px; line-height: 1; color: var(--cyan);
-    }
-    .acard-num.gold { color: var(--gold); }
-    .acard-num.green { color: var(--green); }
-    .acard-lbl {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text2); letter-spacing: 0.12em;
-      text-transform: uppercase; margin-top: 5px;
-    }
+@keyframes fadeup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ─── SKILLS ─── */
-    #skills { background: var(--bg); }
-    .skills-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 3px;
-    }
-    .sgroup {
-      background: var(--bg2); padding: 30px;
-      border: 1px solid rgba(255,255,255,0.03);
-      transition: background 0.3s; position: relative; overflow: hidden;
-    }
-    .sgroup:hover { background: var(--surface); }
-    .sgroup-head {
-      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
-    }
-    .sgroup-icon { font-size: 20px; }
-    .sgroup-name {
-      font-family: 'Space Mono', monospace; font-size: 10px;
-      color: var(--text2); letter-spacing: 0.12em; text-transform: uppercase;
-    }
-    .stags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .stag {
-      padding: 5px 11px;
-      background: rgba(90,168,255,0.06);
-      border: 1px solid rgba(90,168,255,0.14);
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text2); letter-spacing: 0.05em;
-      transition: all 0.2s; cursor: default;
-    }
-    .stag:hover {
-      background: rgba(90,168,255,0.16);
-      color: var(--cyan2); border-color: var(--cyan);
-      transform: translateY(-2px);
-    }
+/* Right panel */
+.hero-panel{
+  display:flex;flex-direction:column;gap:10px;
+  opacity:0;animation:fadein .9s 1.3s var(--ease) forwards;
+}
+@keyframes fadein{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:translateX(0)}}
 
-    /* ─── EXPERIENCE ─── */
-    #experience { background: var(--bg2); }
-    .tl { position: relative; padding-left: 44px; border-left: 1px solid var(--border); }
-    .titem { position: relative; margin-bottom: 52px; }
-    .titem::before {
-      content: ''; position: absolute; left: -50px; top: 5px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--bg2); border: 2px solid var(--cyan);
-      box-shadow: 0 0 14px rgba(90,168,255,0.5);
-    }
-    .t-date {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--gold); letter-spacing: 0.1em; margin-bottom: 8px;
-    }
-    .t-role {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 22px; letter-spacing: -0.03em; margin-bottom: 4px;
-    }
-    .t-company { font-size: 13px; color: var(--cyan); margin-bottom: 14px; }
-    .t-list { list-style: none; }
-    .t-list li {
-      color: var(--text2); font-size: 14px; line-height: 1.85;
-      margin-bottom: 7px; padding-left: 18px; position: relative;
-    }
-    .t-list li::before {
-      content: '→'; position: absolute; left: 0;
-      color: var(--cyan); font-size: 10px; top: 1px;
-    }
-    .t-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-    .ttag {
-      padding: 4px 10px;
-      background: rgba(240,180,41,0.07);
-      border: 1px solid rgba(240,180,41,0.18);
-      font-family: 'Space Mono', monospace; font-size: 9px; color: var(--gold);
-    }
+.panel-status{
+  padding:12px 18px;background:rgba(46,203,122,.06);
+  border:1px solid rgba(46,203,122,.18);
+  display:flex;align-items:center;gap:10px;
+}
+.ps-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;animation:livepin 2s infinite}
+.ps-txt{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);letter-spacing:.13em;text-transform:uppercase}
 
-    /* ─── EDUCATION ─── */
-    #education { background: var(--bg); }
-    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
-    .edu-card {
-      background: var(--bg2); border: 1px solid var(--border);
-      padding: 40px; transition: all 0.35s; position: relative; overflow: hidden;
-    }
-    .edu-card::after {
-      content: ''; position: absolute; top: -60px; right: -60px;
-      width: 180px; height: 180px; border-radius: 50%;
-      background: rgba(90,168,255,0.04); transition: all 0.35s;
-    }
-    .edu-card:hover { background: var(--surface); border-color: var(--border2); }
-    .edu-card:hover::after { transform: scale(1.5); }
-    .edu-badge {
-      display: inline-block; padding: 4px 10px;
-      background: rgba(90,168,255,0.08); border: 1px solid var(--border);
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-    .edu-degree {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 20px; letter-spacing: -0.02em;
-      line-height: 1.25; margin-bottom: 6px;
-    }
-    .edu-school { font-size: 13px; color: var(--cyan); margin-bottom: 4px; }
-    .edu-period {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text3); letter-spacing: 0.1em; margin-bottom: 18px;
-    }
-    .edu-list { list-style: none; }
-    .edu-list li {
-      font-size: 13px; color: var(--text2); line-height: 1.75;
-      margin-bottom: 8px; padding-left: 16px; position: relative;
-    }
-    .edu-list li::before {
-      content: '◆'; position: absolute; left: 0; color: var(--gold);
-      font-size: 7px; top: 5px;
-    }
+.panel-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pcard-stat{
+  background:var(--bg3);border:1px solid var(--b0);padding:20px;
+  position:relative;overflow:hidden;cursor:default;
+  transition:border-color .3s,background .3s,transform .3s var(--ease);
+}
+.pcard-stat:hover{border-color:var(--b1);background:var(--su);transform:translateY(-2px)}
+.pcard-stat::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(circle at var(--px,50%) var(--py,50%),rgba(82,158,255,.1),transparent 65%);
+  opacity:0;transition:opacity .3s;
+}
+.pcard-stat:hover::before{opacity:1}
+.pcs-ico{font-size:22px;margin-bottom:10px;filter:drop-shadow(0 0 8px rgba(82,158,255,.45));position:relative;z-index:1}
+.pcs-val{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;line-height:1;margin-bottom:4px;position:relative;z-index:1}
+.pcs-val.c{color:var(--cyan)}.pcs-val.g{color:var(--gold)}.pcs-val.gr{color:var(--green)}.pcs-val.p{color:var(--pur)}
+.pcs-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--t1);letter-spacing:.1em;text-transform:uppercase;position:relative;z-index:1}
 
-    /* ─── PROJECTS ─── */
-    #projects { background: var(--bg2); }
+.panel-info{padding:14px 18px;background:var(--bg3);border:1px solid var(--b0)}
+.pi-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.pi-key{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--t2);letter-spacing:.13em;text-transform:uppercase}
+.pi-val{font-size:12px;color:var(--t1)}
+.pi-mail{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);margin-top:8px;padding-top:8px;border-top:1px solid var(--b0)}
 
-    .proj-filters {
-      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px;
-    }
-    .filt-btn {
-      padding: 8px 18px; font-family: 'Space Mono', monospace;
-      font-size: 10px; letter-spacing: 0.08em;
-      border: 1px solid var(--border); color: var(--text2);
-      background: rgba(90,168,255,0.03); cursor: pointer;
-      transition: all 0.25s; text-transform: uppercase;
-    }
-    .filt-btn:hover, .filt-btn.active {
-      border-color: var(--cyan); color: var(--cyan);
-      background: rgba(90,168,255,0.1);
-    }
+/* ════════════════════════════════════════════════════════════
+   SECTION COMMON
+════════════════════════════════════════════════════════════ */
+section{padding:100px 56px;position:relative;z-index:1}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--cyan);
+  letter-spacing:.26em;text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--cyan)}
+.sec-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(28px,4vw,52px);letter-spacing:-.05em;line-height:.97;margin-bottom:52px;
+}
+.sec-title em{font-style:italic;font-weight:400;color:var(--t1)}
 
-    .proj-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 3px;
-    }
-    .pcard {
-      background: var(--bg); border: 1px solid rgba(255,255,255,0.04);
-      display: flex; flex-direction: column;
-      transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-      position: relative; overflow: hidden; cursor: pointer;
-    }
-    .pcard:hover {
-      transform: translateY(-5px); border-color: rgba(90,168,255,0.22);
-      background: var(--surface);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(90,168,255,0.1);
-    }
+.rv{opacity:0;transform:translateY(24px);transition:opacity .72s var(--ease),transform .72s var(--ease)}
+.rv.in{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
 
-    .pcard-thumb {
-      position: relative; min-height: 210px; overflow: hidden;
-    }
-    .thumb-svg {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      opacity: 0.85; transition: opacity 0.4s;
-    }
-    .pcard:hover .thumb-svg { opacity: 1; }
-    .pcard-thumb-bg {
-      position: absolute; inset: 0;
-      transition: transform 0.5s ease;
-    }
-    .pcard:hover .pcard-thumb-bg { transform: scale(1.05); }
+/* ════════════════════════════════════════════════════════════
+   ABOUT
+════════════════════════════════════════════════════════════ */
+#about{background:var(--bg1)}
+.about-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:52px;align-items:start}
+.about-text p{color:var(--t1);font-size:15px;line-height:1.95;margin-bottom:16px}
+.about-text strong{color:var(--t0);font-weight:500}
+.about-text .hl{color:var(--cyan)}
+.about-cards{display:flex;flex-direction:column;gap:3px}
+.acard{
+  background:var(--su);border:1px solid var(--b0);padding:20px 24px;
+  position:relative;overflow:hidden;transition:all .28s var(--ease);cursor:default;
+}
+.acard::after{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cyan),var(--gold));transform:scaleY(0);transition:transform .3s var(--ease)}
+.acard:hover::after{transform:scaleY(1)}
+.acard:hover{background:var(--su2);transform:translateX(4px)}
+.ac-val{font-family:'Syne',sans-serif;font-weight:800;font-size:32px;line-height:1;color:var(--cyan)}
+.ac-val.g{color:var(--gold)}.ac-val.gr{color:var(--green)}
+.ac-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t1);letter-spacing:.1em;text-transform:uppercase;margin-top:5px}
 
-    /* Thumb themes */
-    .thumb-ai {
-      background: radial-gradient(circle at 25% 20%, rgba(90,168,255,0.4) 0%, transparent 45%),
-                  radial-gradient(circle at 80% 75%, rgba(240,180,41,0.2) 0%, transparent 40%),
-                  linear-gradient(135deg, #0a1e42 0%, #061428 60%, #04060f 100%);
-    }
-    .thumb-nlp {
-      background: radial-gradient(circle at 22% 22%, rgba(167,139,250,0.4) 0%, transparent 42%),
-                  radial-gradient(circle at 78% 72%, rgba(240,180,41,0.25) 0%, transparent 38%),
-                  linear-gradient(135deg, #1a1035 0%, #100c24 60%, #04060f 100%);
-    }
-    .thumb-btc {
-      background: radial-gradient(circle at 24% 22%, rgba(240,180,41,0.42) 0%, transparent 40%),
-                  radial-gradient(circle at 76% 70%, rgba(90,168,255,0.2) 0%, transparent 38%),
-                  linear-gradient(135deg, #261e0a 0%, #1a1b2e 60%, #04060f 100%);
-    }
-    .thumb-stream {
-      background: radial-gradient(circle at 22% 22%, rgba(61,214,140,0.35) 0%, transparent 42%),
-                  radial-gradient(circle at 78% 70%, rgba(90,168,255,0.2) 0%, transparent 38%),
-                  linear-gradient(135deg, #0a2218 0%, #0c1a30 60%, #04060f 100%);
-    }
+/* ════════════════════════════════════════════════════════════
+   SKILLS
+════════════════════════════════════════════════════════════ */
+#skills{background:var(--bg0)}
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:3px}
+.sk-group{
+  background:var(--bg1);padding:28px;border:1px solid rgba(255,255,255,.03);
+  transition:background .3s;position:relative;overflow:hidden;
+}
+.sk-group:hover{background:var(--su)}
+.sk-head{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sk-ico{font-size:18px}
+.sk-name{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t1);letter-spacing:.12em;text-transform:uppercase}
+.sk-tags{display:flex;flex-wrap:wrap;gap:5px}
+.sk-tag{
+  padding:4px 10px;background:rgba(82,158,255,.05);border:1px solid rgba(82,158,255,.12);
+  font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t1);letter-spacing:.03em;
+  transition:all .22s;cursor:default;
+}
+.sk-tag:hover{background:rgba(82,158,255,.14);color:var(--c2);border-color:var(--cyan);transform:translateY(-2px)}
 
-    /* Animated grid overlay */
-    .thumb-grid-overlay {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 32px 32px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.05));
-    }
+/* ════════════════════════════════════════════════════════════
+   EXPERIENCE
+════════════════════════════════════════════════════════════ */
+#experience{background:var(--bg1)}
+.timeline{position:relative;padding-left:44px}
+.timeline::before{content:'';position:absolute;left:14px;top:8px;bottom:0;width:1px;background:linear-gradient(180deg,var(--cyan),transparent);opacity:.25}
+.titem{position:relative;margin-bottom:52px}
+.titem::before{
+  content:'';position:absolute;left:-36px;top:7px;
+  width:14px;height:14px;border-radius:50%;background:var(--bg1);
+  border:2px solid var(--cyan);
+  box-shadow:0 0 18px rgba(82,158,255,.55),0 0 0 4px rgba(82,158,255,.08);
+}
+.t-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.1em;margin-bottom:8px}
+.t-role{font-family:'Syne',sans-serif;font-weight:700;font-size:22px;letter-spacing:-.035em;margin-bottom:4px}
+.t-co{font-size:13px;color:var(--cyan);margin-bottom:14px}
+.t-list{list-style:none}
+.t-list li{color:var(--t1);font-size:14px;line-height:1.85;margin-bottom:7px;padding-left:18px;position:relative}
+.t-list li::before{content:'→';position:absolute;left:0;color:var(--cyan);font-size:10px;top:2px}
+.t-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.ttag{padding:4px 10px;background:rgba(237,178,39,.06);border:1px solid rgba(237,178,39,.16);font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--gold)}
 
-    /* Floating orbs */
-    .thumb-orb {
-      position: absolute; border-radius: 50%;
-      filter: blur(1px); animation: floatOrb 7s ease-in-out infinite;
-    }
-    .thumb-orb.o1 { width: 180px; height: 180px; right: -40px; top: -40px; animation-delay: 0s; }
-    .thumb-orb.o2 { width: 120px; height: 120px; left: -30px; bottom: -40px; animation-delay: -3.5s; }
-    @keyframes floatOrb {
-      0%,100% { transform: translateY(0) translateX(0) rotate(0deg); }
-      50%      { transform: translateY(-14px) translateX(10px) rotate(15deg); }
-    }
+/* ════════════════════════════════════════════════════════════
+   EDUCATION
+════════════════════════════════════════════════════════════ */
+#education{background:var(--bg0)}
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.edu-card{
+  background:var(--bg1);border:1px solid var(--b0);padding:36px;
+  transition:all .35s var(--ease);position:relative;overflow:hidden;
+}
+.edu-card::after{content:'';position:absolute;top:-60px;right:-60px;width:190px;height:190px;border-radius:50%;background:rgba(82,158,255,.04);transition:all .4s;pointer-events:none}
+.edu-card:hover{background:var(--su);border-color:var(--b1)}
+.edu-card:hover::after{transform:scale(1.7)}
+.edu-badge{display:inline-block;padding:4px 12px;background:rgba(82,158,255,.07);border:1px solid var(--b0);font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.edu-deg{font-family:'Syne',sans-serif;font-weight:700;font-size:19px;letter-spacing:-.025em;line-height:1.22;margin-bottom:5px}
+.edu-school{font-size:13px;color:var(--cyan);margin-bottom:3px}
+.edu-period{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);letter-spacing:.1em;margin-bottom:16px}
+.edu-list{list-style:none}
+.edu-list li{font-size:13px;color:var(--t1);line-height:1.78;margin-bottom:8px;padding-left:16px;position:relative}
+.edu-list li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:7px;top:5px}
 
-    .thumb-content {
-      position: absolute; inset: 0; padding: 18px;
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .thumb-badge {
-      align-self: flex-start; padding: 6px 12px;
-      background: rgba(4,6,15,0.55); border: 1px solid rgba(255,255,255,0.12);
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text); letter-spacing: 0.1em; text-transform: uppercase;
-      backdrop-filter: blur(8px);
-    }
-    .thumb-metrics { display: flex; flex-wrap: wrap; gap: 6px; }
-    .thumb-metric {
-      padding: 5px 10px;
-      background: rgba(4,6,15,0.55); border: 1px solid rgba(255,255,255,0.1);
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text); backdrop-filter: blur(8px);
-    }
+/* ════════════════════════════════════════════════════════════
+   PROJECTS
+════════════════════════════════════════════════════════════ */
+#projects{background:var(--bg1)}
+.filts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.fb{
+  padding:8px 18px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;border:1px solid var(--b0);color:var(--t1);background:transparent;
+  cursor:pointer;transition:all .22s;
+}
+.fb:hover,.fb.on{border-color:var(--cyan);color:var(--cyan);background:rgba(82,158,255,.07)}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:3px}
 
-    .pcard-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
-    .pcard-type {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      margin-bottom: 12px;
-      display: flex; align-items: center; gap: 7px;
-    }
-    .pcard-type::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: currentColor; box-shadow: 0 0 8px currentColor;
-    }
-    .pcard-title {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 19px; letter-spacing: -0.02em; line-height: 1.25;
-      color: var(--text); margin-bottom: 8px;
-    }
-    .pcard-period {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text3); letter-spacing: 0.08em; margin-bottom: 12px;
-    }
-    .pcard-desc {
-      font-size: 13px; color: var(--text2); line-height: 1.8;
-      flex: 1; margin-bottom: 18px;
-    }
-    .pcard-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 18px; }
-    .ptag {
-      padding: 3px 10px; font-family: 'Space Mono', monospace;
-      font-size: 9px; letter-spacing: 0.05em; border: 1px solid;
-    }
-    .pcard-actions { display: flex; gap: 12px; align-items: center; }
-    .plink {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: 'Space Mono', monospace; font-size: 10px;
-      color: var(--cyan); text-decoration: none;
-      border-bottom: 1px solid rgba(90,168,255,0.25);
-      padding-bottom: 2px; transition: all 0.25s;
-    }
-    .plink:hover { border-color: var(--cyan); gap: 10px; }
-    .detail-btn {
-      font-family: 'Space Mono', monospace; font-size: 10px;
-      color: var(--text2); background: none; border: 1px solid var(--border);
-      padding: 6px 14px; cursor: pointer;
-      transition: all 0.25s; letter-spacing: 0.06em;
-    }
-    .detail-btn:hover {
-      border-color: var(--cyan2); color: var(--cyan2);
-    }
+.pj{
+  background:var(--bg0);border:1px solid rgba(255,255,255,.04);
+  display:flex;flex-direction:column;
+  transition:all .38s var(--ease);position:relative;overflow:hidden;
+  transform-style:preserve-3d;
+}
+.pj:hover{border-color:var(--b1);box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 0 1px rgba(82,158,255,.1)}
 
-    /* ─── AWARDS ─── */
-    #awards { background: var(--bg); }
-    .awards-list { display: flex; flex-direction: column; gap: 3px; }
-    .award-item {
-      background: var(--bg2); border: 1px solid var(--border);
-      padding: 28px 32px; display: flex; align-items: flex-start; gap: 24px;
-      transition: all 0.3s;
-    }
-    .award-item:hover {
-      background: var(--surface); border-color: rgba(240,180,41,0.22);
-      transform: translateX(5px);
-    }
-    .award-icon {
-      font-size: 30px; flex-shrink: 0;
-      filter: drop-shadow(0 0 14px rgba(240,180,41,0.6));
-    }
-    .award-title {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 18px; margin-bottom: 4px;
-    }
-    .award-issuer {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .award-desc { font-size: 13px; color: var(--text2); line-height: 1.75; }
+.pj-thumb{position:relative;min-height:220px;overflow:hidden;border-bottom:1px solid var(--b0)}
+.pj-bg{position:absolute;inset:0;transition:transform .5s var(--ease)}
+.pj:hover .pj-bg{transform:scale(1.05)}
 
-    /* ─── CONTACT ─── */
-    #contact { background: var(--bg2); text-align: center; }
-    .contact-inner { max-width: 580px; margin: 0 auto; }
-    .contact-tagline {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(36px, 5vw, 66px);
-      letter-spacing: -0.04em; line-height: 0.95; margin-bottom: 22px;
-    }
-    .contact-grad {
-      background: linear-gradient(120deg, var(--cyan), var(--gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .contact-desc { color: var(--text2); font-size: 15px; line-height: 1.85; margin-bottom: 40px; }
-    .contact-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
-    .clink {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 13px 22px; background: var(--surface); border: 1px solid var(--border);
-      color: var(--text2); font-family: 'Space Mono', monospace; font-size: 11px;
-      text-decoration: none; letter-spacing: 0.08em; transition: all 0.28s;
-    }
-    .clink:hover {
-      background: var(--s2); border-color: var(--cyan);
-      color: var(--cyan); transform: translateY(-2px);
-    }
+.tbg-ai{background:radial-gradient(circle at 20% 20%,rgba(82,158,255,.36) 0%,transparent 42%),radial-gradient(circle at 78% 76%,rgba(237,178,39,.18) 0%,transparent 40%),linear-gradient(140deg,#091c3f,#05112a,#030509)}
+.tbg-nlp{background:radial-gradient(circle at 20% 20%,rgba(155,125,248,.4) 0%,transparent 44%),radial-gradient(circle at 78% 74%,rgba(237,178,39,.2) 0%,transparent 38%),linear-gradient(140deg,#190f32,#0e0a21,#030509)}
+.tbg-btc{background:radial-gradient(circle at 20% 22%,rgba(237,178,39,.42) 0%,transparent 40%),radial-gradient(circle at 78% 74%,rgba(82,158,255,.18) 0%,transparent 38%),linear-gradient(140deg,#241b08,#171826,#030509)}
+.tbg-str{background:radial-gradient(circle at 20% 22%,rgba(46,203,122,.34) 0%,transparent 44%),radial-gradient(circle at 78% 72%,rgba(82,158,255,.18) 0%,transparent 38%),linear-gradient(140deg,#081d12,#0a1626,#030509)}
 
-    /* ─── FOOTER ─── */
-    footer {
-      padding: 24px 56px; background: var(--bg);
-      border-top: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-      position: relative; z-index: 1;
-    }
-    footer p {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text3); letter-spacing: 0.08em;
-    }
+.tgrid-ov{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:30px 30px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.02))}
+.tsvg-w{position:absolute;inset:0;overflow:hidden}
+.t-cov{position:absolute;inset:0;padding:14px;display:flex;flex-direction:column;justify-content:space-between;z-index:2}
+.t-badge{align-self:flex-start;padding:5px 11px;background:rgba(3,5,9,.6);border:1px solid rgba(255,255,255,.12);font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t0);letter-spacing:.1em;text-transform:uppercase;backdrop-filter:blur(8px)}
+.t-mets{display:flex;flex-wrap:wrap;gap:5px}
+.t-met{padding:4px 9px;background:rgba(3,5,9,.6);border:1px solid rgba(255,255,255,.1);font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t0);backdrop-filter:blur(8px)}
 
-    /* ─── MODAL ─── */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 300;
-      background: rgba(4,6,15,0.82); backdrop-filter: blur(12px);
-      display: none; align-items: center; justify-content: center; padding: 20px;
-    }
-    .modal-overlay.open { display: flex; }
-    .modal-box {
-      width: min(960px, 100%); max-height: min(88vh, 900px);
-      overflow-y: auto; background: var(--bg2);
-      border: 1px solid var(--border); position: relative;
-    }
-    .modal-thumb {
-      min-height: 200px; position: relative; overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
-    .modal-body { padding: 36px; }
-    .modal-close {
-      position: absolute; right: 18px; top: 18px;
-      width: 40px; height: 40px; background: rgba(4,6,15,0.6);
-      border: 1px solid rgba(255,255,255,0.1); color: var(--text);
-      font-size: 18px; cursor: pointer; backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s;
-    }
-    .modal-close:hover { border-color: var(--cyan); color: var(--cyan); }
-    .modal-title {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: 30px; letter-spacing: -0.04em; line-height: 1.1;
-      margin-bottom: 10px;
-    }
-    .modal-meta {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      color: var(--text2); letter-spacing: 0.12em; margin-bottom: 20px;
-    }
-    .modal-desc { color: var(--text2); line-height: 1.9; font-size: 14.5px; margin-bottom: 24px; }
-    .modal-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 24px; }
-    .modal-col {
-      background: var(--bg3); border: 1px solid var(--border); padding: 20px;
-    }
-    .modal-col h4 {
-      font-family: 'Space Mono', monospace; font-size: 9px;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--cyan); margin-bottom: 12px;
-    }
-    .modal-col ul { list-style: none; }
-    .modal-col li {
-      font-size: 13px; color: var(--text2); line-height: 1.8;
-      margin-bottom: 7px; padding-left: 16px; position: relative;
-    }
-    .modal-col li::before {
-      content: '▸'; position: absolute; left: 0; color: var(--cyan); font-size: 10px;
-    }
-    .modal-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.pj-body{padding:24px;flex:1;display:flex;flex-direction:column}
+.pj-type{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.pj-type::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;flex-shrink:0}
+.pj-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;letter-spacing:-.025em;line-height:1.28;color:var(--t0);margin-bottom:7px}
+.pj-per{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t2);letter-spacing:.08em;margin-bottom:10px}
+.pj-desc{font-size:13px;color:var(--t1);line-height:1.8;flex:1;margin-bottom:14px}
+.pj-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.pjtag{padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.03em;border:1px solid}
+.pj-acts{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pl{font-family:'JetBrains Mono',monospace;font-size:9.5px;border-bottom:1px solid;padding-bottom:2px;transition:all .22s;display:inline-flex;align-items:center;gap:6px;letter-spacing:.03em}
+.pl:hover{letter-spacing:.06em}
+.pl-gh{color:var(--cyan);border-color:rgba(82,158,255,.25)}
+.pl-gh:hover{border-color:var(--cyan)}
+.pl-en{color:var(--gold);border-color:rgba(237,178,39,.25)}
+.pl-en:hover{border-color:var(--gold)}
+.pl-th{color:var(--green);border-color:rgba(46,203,122,.25)}
+.pl-th:hover{border-color:var(--green)}
+.dbtn{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--t1);background:none;border:1px solid var(--b0);padding:7px 14px;cursor:pointer;transition:all .22s;letter-spacing:.06em}
+.dbtn:hover{border-color:var(--c2);color:var(--c2)}
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      section, #hero { padding: 80px 24px; }
-      .about-layout, .edu-grid, .modal-two-col { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 8px; text-align: center; }
-    }
-  </style>
+/* ════════════════════════════════════════════════════════════
+   AWARDS
+════════════════════════════════════════════════════════════ */
+#awards{background:var(--bg0)}
+.aw-list{display:flex;flex-direction:column;gap:3px}
+.aw-item{
+  background:var(--bg1);border:1px solid var(--b0);padding:26px 30px;
+  display:flex;align-items:flex-start;gap:22px;
+  transition:all .3s var(--ease);position:relative;overflow:hidden;
+}
+.aw-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(237,178,39,.09),transparent);transition:width .32s var(--ease)}
+.aw-item:hover::before{width:100%}
+.aw-item:hover{transform:translateX(5px);border-color:rgba(237,178,39,.2)}
+.aw-ico{font-size:28px;flex-shrink:0;filter:drop-shadow(0 0 12px rgba(237,178,39,.55));position:relative;z-index:1}
+.aw-body{position:relative;z-index:1}
+.aw-title{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:4px}
+.aw-issuer{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px}
+.aw-desc{font-size:13px;color:var(--t1);line-height:1.75}
+
+/* ════════════════════════════════════════════════════════════
+   CONTACT
+════════════════════════════════════════════════════════════ */
+#contact{background:var(--bg1);text-align:center}
+.ct-inner{max-width:580px;margin:0 auto}
+.ct-h{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,5.5vw,68px);letter-spacing:-.055em;line-height:.88;margin-bottom:22px}
+.ct-grad{
+  background:linear-gradient(125deg,var(--cyan),var(--pur) 48%,var(--gold));
+  background-size:200% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gradshift 5s ease-in-out infinite alternate;
+}
+.ct-sub{color:var(--t1);font-size:15px;line-height:1.88;margin-bottom:40px}
+.ct-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.clink{
+  display:inline-flex;align-items:center;gap:10px;padding:13px 22px;
+  background:var(--su);border:1px solid var(--b0);color:var(--t1);
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;
+  transition:all .28s var(--ease);
+}
+.clink:hover{background:var(--su2);border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px);box-shadow:0 10px 28px rgba(82,158,255,.13)}
+
+/* ════════════════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════════════════ */
+footer{
+  padding:22px 56px;background:var(--bg0);border-top:1px solid var(--b0);
+  display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;
+}
+footer p{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--t2);letter-spacing:.08em}
+
+/* ════════════════════════════════════════════════════════════
+   MODAL
+════════════════════════════════════════════════════════════ */
+.moverlay{
+  position:fixed;inset:0;z-index:700;background:rgba(2,4,10,.88);backdrop-filter:blur(18px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+  opacity:0;transition:opacity .32s;
+}
+.moverlay.open{display:flex;opacity:1}
+.mbox{
+  width:min(960px,100%);max-height:min(88vh,900px);overflow-y:auto;
+  background:var(--bg1);border:1px solid var(--b0);position:relative;
+  transform:translateY(16px);transition:transform .32s var(--ease);
+}
+.moverlay.open .mbox{transform:translateY(0)}
+.mthumb{min-height:200px;position:relative;overflow:hidden;border-bottom:1px solid var(--b0)}
+.mbody{padding:34px}
+.mclose{
+  position:absolute;right:16px;top:16px;width:38px;height:38px;
+  background:rgba(3,5,9,.7);border:1px solid rgba(255,255,255,.1);
+  color:var(--t0);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;z-index:10;
+}
+.mclose:hover{border-color:var(--cyan);color:var(--cyan)}
+.mmeta{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t1);letter-spacing:.12em;margin-bottom:10px}
+.mtitle{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:-.05em;line-height:1.1;margin-bottom:12px}
+.mdesc{color:var(--t1);line-height:1.9;font-size:14px;margin-bottom:20px}
+.m2col{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.mcol{background:var(--bg3);border:1px solid var(--b0);padding:18px}
+.mcol h4{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+.mcol ul{list-style:none}
+.mcol li{font-size:12.5px;color:var(--t1);line-height:1.8;margin-bottom:6px;padding-left:14px;position:relative}
+.mcol li::before{content:'▸';position:absolute;left:0;color:var(--cyan);font-size:10px}
+.mlinks{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.yt-blk{display:flex;flex-direction:column;gap:7px}
+.yt-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--t2);letter-spacing:.12em;text-transform:uppercase}
+.yt-row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════════ */
+@media(max-width:960px){
+  #hero{grid-template-columns:1fr;padding:100px 24px 60px}
+  .hero-panel{display:none}
+  nav{padding:14px 24px;top:0}
+  #ticker{display:none}
+  .nav-links,.nav-cta{display:none}
+  section{padding:80px 24px}
+  .about-grid,.edu-grid,.m2col{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:8px;text-align:center;padding:20px 24px}
+  .hero-nums{gap:22px}
+  .proj-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
-<canvas id="canvas"></canvas>
+<!-- GRAIN -->
+<div id="grain"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="ld-name">
+    <span class="ld-c" id="lc0">K</span><span class="ld-c" id="lc1">u</span><span class="ld-c" id="lc2">n</span><span class="ld-c dot" id="lc3">.</span>
+  </div>
+  <div class="ld-bar"></div>
+  <div class="ld-sub" id="ldpct">INITIALIZING</div>
+</div>
+
+<!-- CURSOR -->
+<div id="curdot"></div>
+<div id="curring"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="progress"></div>
+
+<!-- CANVAS -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- TICKER -->
+<div id="ticker">
+  <div class="ticker-inner" id="ticker-inner"></div>
+</div>
 
 <!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#">KP</a>
-  <ul class="nav-links">
+<nav id="mainnav">
+  <a class="nav-brand" href="#"><span class="nbpulse"></span>KP.</a>
+  <ul class="nav-links" id="navlinks">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -649,164 +588,125 @@
     <li><a href="#awards">Awards</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <a class="nav-cta" href="mailto:kunakorn.pruk@gmail.com"><span>Get in Touch</span></a>
 </nav>
 
-<!-- HERO -->
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
 <section id="hero">
-  <div class="hero-tag">
-    <span class="hero-tag-dot"></span>
-    Open to new opportunities
-  </div>
-  <h1 class="hero-name">
-    <span class="line1">Kunakorn</span>
-    <span class="line2">Pruksakorn</span>
-  </h1>
-  <div class="hero-subtitle">
-    Automation Engineer &nbsp;<span class="hl">·</span>&nbsp;
-    AI / ML Engineer &nbsp;<span class="hl">·</span>&nbsp;
-    Data Scientist
-  </div>
-  <p class="hero-desc">
-    Building intelligent systems at the crossroads of
-    <strong>Industrial Automation</strong>, <strong>Agentic AI</strong>, and
-    <strong>Data Science</strong> — from factory-floor IoT to live-validated
-    financial agents and Thai NLP research.
-  </p>
-  <div class="hero-btns">
-    <a class="btn btn-primary" href="#projects">View Projects ↗</a>
-    <a class="btn btn-ghost" href="https://linkedin.com/in/kunakorn-pruksakorn-120297226" target="_blank">LinkedIn</a>
-    <a class="btn btn-ghost" href="https://github.com/KunakornMart" target="_blank">GitHub</a>
-  </div>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">4<sup style="font-size:18px;color:var(--gold)">+</sup></div>
-      <div class="stat-label">Years Automation</div>
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="eye-dot"></span>Open to new opportunities</div>
+    <h1 class="hero-name">
+      <span class="hn-l1">Kunakorn</span>
+      <span class="hn-l2">Pruksakorn</span>
+    </h1>
+    <div class="hero-typing">
+      <span class="ty-bracket">[</span>
+      <span class="ty-txt" id="typeEl"></span><span class="ty-cur">_</span>
+      <span class="ty-bracket">]</span>
     </div>
-    <div class="stat">
-      <div class="stat-num gold">+3.28<span style="font-size:20px;color:var(--text2)">%</span></div>
-      <div class="stat-label">Avg Weekly Return (Live)</div>
+    <p class="hero-bio">
+      Automation engineer and AI systems builder. <strong>4+ years</strong> in SCADA and industrial IoT at Singha Corporation.
+      <strong>M.S. Data Analytics &amp; Data Science</strong> from the National Institute of Development Administration.
+      Two research papers under journal review. Work that ships.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#projects">View Projects ↗</a>
+      <a class="btn btn-ghost" href="https://linkedin.com/in/kunakorn-pruksakorn-120297226" target="_blank">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/KunakornMart" target="_blank">GitHub</a>
     </div>
-    <div class="stat">
-      <div class="stat-num">M.S.</div>
-      <div class="stat-label">Data Analytics · NIDA</div>
+    <div class="hero-nums">
+      <div><div class="hn-val" data-count="4" data-suffix="+">0</div><div class="hn-lbl">Years Automation</div></div>
+      <div><div class="hn-val g" data-prefix="+">3.28%</div><div class="hn-lbl">Avg Weekly Return (Live)</div></div>
+      <div><div class="hn-val">M.S.</div><div class="hn-lbl">Data Science · NIDA</div></div>
+      <div><div class="hn-val gr" data-count="3">0</div><div class="hn-lbl">Awards Won</div></div>
     </div>
-    <div class="stat">
-      <div class="stat-num green">3</div>
-      <div class="stat-label">Awards Won</div>
+  </div>
+
+  <div class="hero-panel">
+    <div class="panel-status">
+      <span class="ps-dot"></span>
+      <span class="ps-txt">Available for new roles</span>
+    </div>
+    <div class="panel-cards">
+      <div class="pcard-stat"><div class="pcs-ico">🤖</div><div class="pcs-val c">5</div><div class="pcs-lbl">AI Agents (Live)</div></div>
+      <div class="pcard-stat"><div class="pcs-ico">📈</div><div class="pcs-val g">+32.99%</div><div class="pcs-lbl">Cumulative Return</div></div>
+      <div class="pcard-stat"><div class="pcs-ico">🧠</div><div class="pcs-val p">86.57%</div><div class="pcs-lbl">NLP Accuracy</div></div>
+      <div class="pcard-stat"><div class="pcs-ico">🏆</div><div class="pcs-val gr">3</div><div class="pcs-lbl">Awards</div></div>
+    </div>
+    <div class="panel-info">
+      <div class="pi-row"><span class="pi-key">Location</span><span class="pi-val">Pathumthani, Thailand</span></div>
+      <div class="pi-row"><span class="pi-key">Employer</span><span class="pi-val">Singha Corporation</span></div>
+      <div class="pi-row"><span class="pi-key">Open to</span><span class="pi-val">TH · SG · Remote</span></div>
+      <div class="pi-mail">kunakorn.pruk@gmail.com</div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="sec-eyebrow reveal">About Me</div>
-  <h2 class="sec-title reveal">Engineer by training,<br><em>AI builder by practice.</em></h2>
-  <div class="about-layout">
-    <div class="about-text reveal">
+  <div class="eyebrow rv">About Me</div>
+  <h2 class="sec-title rv">Engineer by trade,<br><em>AI builder by choice.</em></h2>
+  <div class="about-grid">
+    <div class="about-text rv">
       <p>
         I'm an <strong>Electrical &amp; Automation Engineer</strong> at
-        <span class="hl">Pathumthani Brewery Co., Ltd. (Boon Rawd Brewery Group)</span>,
-        where I've spent four-plus years working across SCADA, Siemens PLC S7-1500, and IoT
-        systems on real production lines — while building the data pipelines and AI tools that
-        make those environments easier to understand and act on.
+        <span class="hl">Singha Corporation (Boon Rawd Brewery Group)</span>,
+        where I've spent four-plus years maintaining and developing SCADA, Siemens PLC S7-1500,
+        and IoT systems on live manufacturing production lines — while building the data pipelines
+        and AI tools on top of them.
       </p>
       <p>
-        I recently finished my <strong>M.S. in Data Analytics &amp; Data Science</strong>
-        from <span class="hl">NIDA Thailand</span>. My research went into
-        agentic AI for financial decision-making, Thai NLP benchmarking,
-        streaming analytics, and time-series forecasting. Two papers are currently
-        under journal review.
+        I completed my <strong>M.S. in Data Analytics &amp; Data Science</strong> at the
+        <span class="hl">National Institute of Development Administration (NIDA)</span> in 2025.
+        Research: agentic AI for portfolio management, Thai NLP benchmarking, streaming analytics,
+        and time-series forecasting. Two papers currently under journal review.
       </p>
       <p>
-        The through-line across all of it: industrial and operational data is
-        almost always underused. Connect it properly with modern analytics
-        and AI, and there's a lot of room to make systems more useful
-        and decisions more informed.
+        Operational data from industrial environments is almost always underused.
+        The gap between what's being measured and what's being acted on is where I work.
       </p>
     </div>
-    <div class="about-cards reveal delay-2">
-      <div class="acard">
-        <div class="acard-num">4<sup style="font-size:16px">+ yr</sup></div>
-        <div class="acard-lbl">@ Singha Corporation · Pathumthani Brewery Co., Ltd.</div>
-      </div>
-      <div class="acard">
-        <div class="acard-num gold">M.S.</div>
-        <div class="acard-lbl">Data Analytics &amp; Data Science · NIDA 2025</div>
-      </div>
-      <div class="acard">
-        <div class="acard-num">5</div>
-        <div class="acard-lbl">AI Agents in live stock trading system</div>
-      </div>
-      <div class="acard">
-        <div class="acard-num green">3</div>
-        <div class="acard-lbl">Industry &amp; Academic Awards</div>
-      </div>
+    <div class="about-cards rv d2">
+      <div class="acard"><div class="ac-val">4<sup style="font-size:14px">+ yr</sup></div><div class="ac-lbl">@ Singha Corporation · Pathumthani</div></div>
+      <div class="acard"><div class="ac-val g">M.S.</div><div class="ac-lbl">Data Analytics &amp; Data Science · 2025</div></div>
+      <div class="acard"><div class="ac-val">5</div><div class="ac-lbl">AI Agents running in live market</div></div>
+      <div class="acard"><div class="ac-val gr">3</div><div class="ac-lbl">Industry &amp; Academic Awards</div></div>
     </div>
   </div>
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="sec-eyebrow reveal">Technical Stack</div>
-  <h2 class="sec-title reveal">What I <em>build with.</em></h2>
-  <div class="skills-grid">
-    <div class="sgroup reveal">
-      <div class="sgroup-head"><span class="sgroup-icon">🤖</span><span class="sgroup-name">AI · LLM · Agentic</span></div>
-      <div class="stags">
-        <span class="stag">Agentic AI</span><span class="stag">LangGraph</span><span class="stag">LLM</span>
-        <span class="stag">Llama 3.3-70B</span><span class="stag">GPT-4o</span><span class="stag">Groq API</span>
-        <span class="stag">RAG</span><span class="stag">Zero-shot Reasoning</span><span class="stag">PydanticAI</span>
-      </div>
-    </div>
-    <div class="sgroup reveal delay-1">
-      <div class="sgroup-head"><span class="sgroup-icon">🧠</span><span class="sgroup-name">ML · DL · NLP</span></div>
-      <div class="stags">
-        <span class="stag">Scikit-learn</span><span class="stag">XGBoost</span><span class="stag">PyTorch</span>
-        <span class="stag">TensorFlow</span><span class="stag">CNN / LSTM / GRU</span><span class="stag">BERT / WangchanBERTa</span>
-        <span class="stag">Prophet</span><span class="stag">ARIMA</span><span class="stag">PyThaiNLP</span>
-      </div>
-    </div>
-    <div class="sgroup reveal delay-2">
-      <div class="sgroup-head"><span class="sgroup-icon">📡</span><span class="sgroup-name">Data Engineering</span></div>
-      <div class="stags">
-        <span class="stag">Apache Kafka</span><span class="stag">ksqlDB</span><span class="stag">Apache Pinot</span>
-        <span class="stag">Apache Airflow</span><span class="stag">Docker</span><span class="stag">Amazon EC2</span>
-        <span class="stag">Streamlit</span><span class="stag">Power BI</span><span class="stag">Pandas / NumPy</span>
-      </div>
-    </div>
-    <div class="sgroup reveal delay-3">
-      <div class="sgroup-head"><span class="sgroup-icon">⚙️</span><span class="sgroup-name">Automation · IoT</span></div>
-      <div class="stags">
-        <span class="stag">PLC Siemens S7-1500</span><span class="stag">TIA Portal</span>
-        <span class="stag">SCADA</span><span class="stag">Node-RED</span><span class="stag">MQTT</span>
-        <span class="stag">InfluxDB</span><span class="stag">Grafana</span><span class="stag">n8n</span>
-        <span class="stag">NB-IoT · ESP32</span>
-      </div>
-    </div>
+  <div class="eyebrow rv">Technical Stack</div>
+  <h2 class="sec-title rv">What I <em>build with.</em></h2>
+  <div class="sk-grid">
+    <div class="sk-group rv"><div class="sk-head"><span class="sk-ico">🤖</span><span class="sk-name">AI · LLM · Agentic</span></div><div class="sk-tags"><span class="sk-tag">Agentic AI</span><span class="sk-tag">LangGraph</span><span class="sk-tag">LLM Orchestration</span><span class="sk-tag">Llama 3.3-70B</span><span class="sk-tag">GPT-4o</span><span class="sk-tag">Groq API</span><span class="sk-tag">RAG</span><span class="sk-tag">Zero-shot</span><span class="sk-tag">PydanticAI</span></div></div>
+    <div class="sk-group rv d1"><div class="sk-head"><span class="sk-ico">🧠</span><span class="sk-name">ML · DL · NLP</span></div><div class="sk-tags"><span class="sk-tag">Scikit-learn</span><span class="sk-tag">XGBoost</span><span class="sk-tag">PyTorch</span><span class="sk-tag">TensorFlow</span><span class="sk-tag">CNN / LSTM / GRU</span><span class="sk-tag">WangchanBERTa</span><span class="sk-tag">Prophet</span><span class="sk-tag">ARIMA</span><span class="sk-tag">PyThaiNLP</span></div></div>
+    <div class="sk-group rv d2"><div class="sk-head"><span class="sk-ico">📡</span><span class="sk-name">Data Engineering</span></div><div class="sk-tags"><span class="sk-tag">Apache Kafka</span><span class="sk-tag">ksqlDB</span><span class="sk-tag">Apache Pinot</span><span class="sk-tag">Apache Airflow</span><span class="sk-tag">Docker</span><span class="sk-tag">Amazon EC2</span><span class="sk-tag">Streamlit</span><span class="sk-tag">Power BI</span><span class="sk-tag">Pandas</span></div></div>
+    <div class="sk-group rv d3"><div class="sk-head"><span class="sk-ico">⚙️</span><span class="sk-name">Automation · IoT</span></div><div class="sk-tags"><span class="sk-tag">PLC Siemens S7-1500</span><span class="sk-tag">TIA Portal</span><span class="sk-tag">SCADA</span><span class="sk-tag">Node-RED</span><span class="sk-tag">MQTT</span><span class="sk-tag">InfluxDB</span><span class="sk-tag">Grafana</span><span class="sk-tag">n8n</span><span class="sk-tag">NB-IoT · ESP32</span></div></div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
 <section id="experience">
-  <div class="sec-eyebrow reveal">Work Experience</div>
-  <h2 class="sec-title reveal">Where I've <em>made impact.</em></h2>
-  <div class="tl reveal">
+  <div class="eyebrow rv">Work Experience</div>
+  <h2 class="sec-title rv">Where I've <em>made impact.</em></h2>
+  <div class="timeline rv">
     <div class="titem">
       <div class="t-date">FEB 2022 — PRESENT · 4+ YEARS · PATHUMTHANI, THAILAND</div>
       <div class="t-role">Electrical &amp; Automation Engineer</div>
-      <div class="t-company">Singha Corporation (Boon Rawd Brewery Group)</div>
+      <div class="t-co">Singha Corporation (Boon Rawd Brewery Group)</div>
       <ul class="t-list">
-        <li>Maintain and develop SCADA, Siemens PLC S7-1500, and IoT systems across beverage manufacturing production lines</li>
-        <li>Build and support real-time data pipelines via Node-RED → InfluxDB → Grafana → Power BI for live production monitoring</li>
+        <li>Maintain and develop SCADA, Siemens PLC S7-1500, and IoT systems across large-scale beverage manufacturing production lines</li>
+        <li>Build real-time data pipelines: Node-RED → InfluxDB → Grafana → Power BI for live production monitoring and KPI dashboards</li>
         <li>Apply ML and time-series analysis to process data for efficiency improvement, anomaly detection, and downtime reduction</li>
-        <li>Design alerting and workflow automation systems using n8n to reduce manual follow-up and improve response time</li>
-        <li>Developed an AI-powered document routing assistant using LLM to classify and route employee feedback across 32 departments</li>
+        <li>Design alerting and workflow automation using n8n to reduce manual follow-up across departments</li>
+        <li>Built an LLM-powered document routing assistant — classifies and distributes employee feedback across 32 departments</li>
       </ul>
       <div class="t-tags">
-        <span class="ttag">PLC Siemens</span><span class="ttag">SCADA</span>
-        <span class="ttag">Node-RED</span><span class="ttag">InfluxDB</span>
-        <span class="ttag">Power BI</span><span class="ttag">n8n</span>
-        <span class="ttag">LLM Routing</span><span class="ttag">Time-Series ML</span>
+        <span class="ttag">PLC Siemens S7-1500</span><span class="ttag">SCADA</span><span class="ttag">Node-RED</span><span class="ttag">InfluxDB</span><span class="ttag">Grafana</span><span class="ttag">Power BI</span><span class="ttag">n8n</span><span class="ttag">LLM Routing</span><span class="ttag">Time-Series ML</span>
       </div>
     </div>
   </div>
@@ -814,31 +714,31 @@
 
 <!-- EDUCATION -->
 <section id="education">
-  <div class="sec-eyebrow reveal">Education</div>
-  <h2 class="sec-title reveal">Academic <em>foundations.</em></h2>
+  <div class="eyebrow rv">Education</div>
+  <h2 class="sec-title rv">Academic <em>foundations.</em></h2>
   <div class="edu-grid">
-    <div class="edu-card reveal">
+    <div class="edu-card rv">
       <div class="edu-badge">Graduate · M.S.</div>
-      <div class="edu-degree">Data Analytics &amp; Data Science</div>
+      <div class="edu-deg">Data Analytics &amp; Data Science</div>
       <div class="edu-school">National Institute of Development Administration (NIDA)</div>
       <div class="edu-period">JUN 2023 — MAY 2025</div>
       <ul class="edu-list">
-        <li><strong>Independent Study:</strong> Agentic AI Framework for Weekly Stock Portfolio Selection — 5-Agent zero-shot LLM system, live-validated 9 weeks, outperforming NASDAQ-100, S&amp;P 500 &amp; XLK benchmarks</li>
-        <li><strong>NLP Research:</strong> ThaiSarc_V1 — Thai sarcasm detection dataset &amp; full model benchmark (CNN/GRU/LSTM vs. BERT vs. GPT-4o), submitted for journal review</li>
-        <li><strong>Time-Series:</strong> Bitcoin price forecasting pipeline (Prophet, ARIMA, XGBoost, LSTM) orchestrated via Apache Airflow on Amazon EC2</li>
-        <li><strong>Streaming Analytics:</strong> End-to-end real-time pipeline with Kafka, ksqlDB, Apache Pinot, and Streamlit</li>
+        <li><strong>IS Research:</strong> Agentic AI Framework for Weekly Stock Portfolio Selection — 5-agent LLM system, 9 weeks live-validated, beats NASDAQ-100 · S&amp;P 500 · XLK</li>
+        <li><strong>NLP Research:</strong> ThaiSarc_V1 — Thai sarcasm detection dataset + full benchmark (CNN/GRU/LSTM vs. WangchanBERTa vs. GPT-4o), under review</li>
+        <li><strong>Time-Series:</strong> Bitcoin forecasting pipeline (Prophet, ARIMA, XGBoost, LSTM) orchestrated via Apache Airflow on Amazon EC2</li>
+        <li><strong>Streaming Analytics:</strong> End-to-end real-time pipeline with Apache Kafka, ksqlDB, Apache Pinot, and Streamlit</li>
       </ul>
     </div>
-    <div class="edu-card reveal delay-2">
+    <div class="edu-card rv d2">
       <div class="edu-badge">Undergraduate · B.Eng.</div>
-      <div class="edu-degree">Instrumentation &amp; Control Engineering</div>
+      <div class="edu-deg">Instrumentation &amp; Control Engineering</div>
       <div class="edu-school">King Mongkut's Institute of Technology Ladkrabang (KMITL)</div>
       <div class="edu-period">AUG 2017 — JUN 2021</div>
       <ul class="edu-list">
         <li>Foundation in PLC, SCADA, industrial communications, and real-time process monitoring</li>
-        <li>Hands-on with Siemens TIA Portal / STEP 7 — PLC programming, PID tuning, sensor calibration, PROFINET/Modbus/OPC</li>
-        <li>Projects in data acquisition, IoT, machine integration, and industrial networks</li>
-        <li>Final project: single-axis beam control using Machine Vision + Fuzzy Logic vs. PID comparison</li>
+        <li>Siemens TIA Portal / STEP 7 — PLC programming, PID tuning, sensor calibration, PROFINET / Modbus / OPC-UA</li>
+        <li>Projects in data acquisition, IoT sensor integration, machine interfacing, and industrial networking</li>
+        <li>Final project: single-axis beam control — Machine Vision + Fuzzy Logic vs. PID comparison</li>
       </ul>
     </div>
   </div>
@@ -846,51 +746,45 @@
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="sec-eyebrow reveal">Projects</div>
-  <h2 class="sec-title reveal">Things I've <em>shipped.</em></h2>
-  <div class="proj-filters reveal">
-    <button class="filt-btn active" data-f="all">All</button>
-    <button class="filt-btn" data-f="ai">Agentic AI</button>
-    <button class="filt-btn" data-f="nlp">NLP</button>
-    <button class="filt-btn" data-f="ts">Time-Series</button>
-    <button class="filt-btn" data-f="data">Data Engineering</button>
+  <div class="eyebrow rv">Projects</div>
+  <h2 class="sec-title rv">Things I've <em>shipped.</em></h2>
+  <div class="filts rv">
+    <button class="fb on" data-f="all">All</button>
+    <button class="fb" data-f="ai">Agentic AI</button>
+    <button class="fb" data-f="nlp">NLP</button>
+    <button class="fb" data-f="ts">Time-Series</button>
+    <button class="fb" data-f="data">Data Engineering</button>
   </div>
-  <div class="proj-grid" id="proj-grid"></div>
+  <div class="proj-grid" id="pgrid"></div>
 </section>
 
 <!-- AWARDS -->
 <section id="awards">
-  <div class="sec-eyebrow reveal">Honors &amp; Awards</div>
-  <h2 class="sec-title reveal">Recognition <em>earned.</em></h2>
-  <div class="awards-list">
-    <div class="award-item reveal">
-      <div class="award-icon">🎓</div>
-      <div>
-        <div class="award-title">Good Academic Performance Award </div>
-        <div class="award-issuer">National Institute of Development Administration (NIDA) · Sep 2025</div>
-        <p class="award-desc">
-          Awarded by NIDA for good academic performance during graduate study in the M.S. program in Data Analytics and Data Science.
-        </p>
+  <div class="eyebrow rv">Honors &amp; Awards</div>
+  <h2 class="sec-title rv">Recognition <em>earned.</em></h2>
+  <div class="aw-list">
+    <div class="aw-item rv">
+      <div class="aw-ico">🎓</div>
+      <div class="aw-body">
+        <div class="aw-title">Good Academic Performance Award</div>
+        <div class="aw-issuer">National Institute of Development Administration (NIDA) · Sep 2025</div>
+        <p class="aw-desc">Awarded for outstanding academic performance throughout the M.S. program in Data Analytics and Data Science.</p>
       </div>
     </div>
-    <div class="award-item reveal delay-1">
-      <div class="award-icon">🏆</div>
-      <div>
-        <div class="award-title">1st Prize — BEM Internal Competition </div>
-        <div class="award-issuer">Boon Rawd Excellence in Manufacturing (BEM) · May 2025 · Associated with Singha Corporation</div>
-        <p class="award-desc">
-          Awarded 1st Prize for developing a real-time PLC battery back-up fault monitoring and analytics system with dashboard visualization, historical logging, and automated alerts, helping improve machine reliability and reduce breakdown risk. The project was recognized across all companies in the Boon Rawd Group.
-        </p>
+    <div class="aw-item rv d1">
+      <div class="aw-ico">🏆</div>
+      <div class="aw-body">
+        <div class="aw-title">1st Prize — BEM Internal Competition</div>
+        <div class="aw-issuer">Boon Rawd Excellence in Manufacturing (BEM) · May 2025 · Singha Corporation</div>
+        <p class="aw-desc">1st Prize for a real-time PLC battery back-up fault monitoring system with dashboard visualization, historical logging, and automated alerts — recognized across all Boon Rawd Group companies.</p>
       </div>
     </div>
-    <div class="award-item reveal delay-2">
-      <div class="award-icon">🥇</div>
-      <div>
-        <div class="award-title">Golden Award — Thailand Quality Prize (TQP) 2023</div>
-        <div class="award-issuer">Technology Promotion Association (Thailand-Japan) · Mar 2023 · Presented at BITEC</div>
-        <p class="award-desc">
-          Received the Golden Award for developing a Flare Gas Monitoring &amp; Automation System that combined automation and IoT technologies — ESP32-based NB-IoT sensing, MQTT, Node-RED, InfluxDB, and Grafana — to support real-time monitoring, automatic alerts, and daily operational reporting.
-        </p>
+    <div class="aw-item rv d2">
+      <div class="aw-ico">🥇</div>
+      <div class="aw-body">
+        <div class="aw-title">Golden Award — Thailand Quality Prize (TQP) 2023</div>
+        <div class="aw-issuer">Technology Promotion Association (Thailand-Japan) · Mar 2023 · Presented at BITEC</div>
+        <p class="aw-desc">Golden Award for a Flare Gas Monitoring &amp; Automation System: ESP32-based NB-IoT sensing, MQTT, Node-RED, InfluxDB, and Grafana — enabling real-time monitoring, automatic alerts, and daily operational reports.</p>
       </div>
     </div>
   </div>
@@ -898,16 +792,14 @@
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-inner">
-    <h2 class="contact-tagline reveal">
-      Let's build<br>
-      <span class="contact-grad">something great.</span>
-    </h2>
-    <p class="contact-desc reveal delay-1">
-      Open to roles in Data Science, ML/AI Engineering, LLM applications,
-      RAG, agentic AI, and industrial intelligence. Thailand · Singapore · Remote.
+  <div class="ct-inner">
+    <h2 class="ct-h rv">Let's build<br><span class="ct-grad">something real.</span></h2>
+    <p class="ct-sub rv d1">
+      Open to roles in Data Science, ML/AI Engineering, LLM applications,<br>
+      Agentic AI, RAG, and Industrial Intelligence.<br>
+      Thailand · Singapore · Remote.
     </p>
-    <div class="contact-row reveal delay-2">
+    <div class="ct-row rv d2">
       <a class="clink" href="https://linkedin.com/in/kunakorn-pruksakorn-120297226" target="_blank">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
@@ -916,684 +808,447 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
         GitHub
       </a>
-      <a class="clink" href="mailto:kunakorn.psk@gmail.com">
+      <a class="clink" href="mailto:kunakorn.pruk@gmail.com">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
-        Email
+        kunakorn.pruk@gmail.com
       </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2026 Kunakorn Pruksakorn — Automation · AI · Data</p>
-  <p>Built with HTML/CSS/JS · Hosted on GitHub Pages</p>
+  <p>© 2025 Kunakorn Pruksakorn — Automation · AI · Data</p>
+  <p>Built with HTML · CSS · JS — GitHub Pages</p>
 </footer>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal">
-  <div class="modal-box">
-    <button class="modal-close" id="modal-close">✕</button>
-    <div class="modal-thumb" id="modal-thumb"></div>
-    <div class="modal-body">
-      <div class="modal-meta" id="modal-meta"></div>
-      <h2 class="modal-title" id="modal-title"></h2>
-      <p class="modal-desc" id="modal-desc"></p>
-      <div class="pcard-tags" id="modal-tags" style="margin-bottom:22px;"></div>
-      <div class="modal-two-col">
-        <div class="modal-col"><h4>Key Highlights</h4><ul id="modal-highlights"></ul></div>
-        <div class="modal-col"><h4>Stack &amp; Methods</h4><ul id="modal-stack"></ul></div>
+<div class="moverlay" id="modal">
+  <div class="mbox">
+    <button class="mclose" id="mclose">✕</button>
+    <div class="mthumb" id="mthumb"></div>
+    <div class="mbody">
+      <div class="mmeta" id="mmeta"></div>
+      <h2 class="mtitle" id="mtitle"></h2>
+      <p class="mdesc" id="mdesc"></p>
+      <div id="mtags" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px"></div>
+      <div class="m2col">
+        <div class="mcol"><h4>Key Highlights</h4><ul id="mhigh"></ul></div>
+        <div class="mcol"><h4>Stack &amp; Methods</h4><ul id="mstack"></ul></div>
       </div>
-      <div class="modal-links" id="modal-links"></div>
+      <div class="mlinks" id="mlinks"></div>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════ -->
 <script>
-// ─── PROJECTS DATA ───
+'use strict';
+
+/* ── LOADER ─────────────────────────────────────────── */
+const ldChars = [0,1,2,3].map(i => document.getElementById('lc'+i));
+ldChars.forEach((c,i) => setTimeout(() => c.classList.add('show'), 180 + i*150));
+
+let pct = 0;
+const ldpct = document.getElementById('ldpct');
+const ldInt = setInterval(() => {
+  pct += Math.random() * 18 + 6;
+  if(pct >= 100){ pct = 100; clearInterval(ldInt); }
+  ldpct.textContent = Math.floor(pct) + '% LOADED';
+}, 120);
+
+setTimeout(() => {
+  document.getElementById('loader').classList.add('out');
+}, 1900);
+
+/* ── CURSOR ──────────────────────────────────────────── */
+const curdot = document.getElementById('curdot');
+const curring = document.getElementById('curring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  curdot.style.left = mx+'px'; curdot.style.top = my+'px';
+});
+
+document.addEventListener('mousedown', () => curring.classList.add('click'));
+document.addEventListener('mouseup', () => curring.classList.remove('click'));
+
+(function animCursor() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  curring.style.left = rx+'px'; curring.style.top = ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+
+document.querySelectorAll('a,button,.pj,.aw-item,.acard,.sk-tag,.pcard-stat').forEach(el => {
+  el.addEventListener('mouseenter', () => curring.classList.add('hov'));
+  el.addEventListener('mouseleave', () => curring.classList.remove('hov'));
+});
+
+/* ── HERO PANEL MOUSE GLOW ───────────────────────────── */
+document.querySelectorAll('.pcard-stat').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--px', ((e.clientX-r.left)/r.width*100)+'%');
+    card.style.setProperty('--py', ((e.clientY-r.top)/r.height*100)+'%');
+  });
+});
+
+/* ── SCROLL PROGRESS ─────────────────────────────────── */
+const pgb = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  pgb.style.width = (scrollY / (document.body.scrollHeight - innerHeight) * 100)+'%';
+},{passive:true});
+
+/* ── TICKER ──────────────────────────────────────────── */
+const tickData = [
+  {k:'PORTFOLIO_RETURN', v:'+3.28%/wk', cls:'g'},{k:'CUMULATIVE', v:'+32.99%', cls:'g'},
+  {k:'SHARPE_RATIO', v:'6.02', cls:''},{k:'MAX_DRAWDOWN', v:'-1.40%', cls:''},
+  {k:'WIN_RATE', v:'77.8%', cls:'gr'},{k:'WEEKS_LIVE', v:'9 WEEKS', cls:''},
+  {k:'NLP_ACCURACY', v:'86.57%', cls:''},{k:'F1_SCORE', v:'87.11%', cls:'gr'},
+  {k:'DATASET_SIZE', v:'1,028 HEADLINES', cls:''},{k:'ANNOTATION_RELIABILITY', v:'92%', cls:'gr'},
+  {k:'MODELS_BENCHMARKED', v:'7', cls:''},{k:'UNIVERSE', v:'90 STOCKS', cls:''},
+  {k:'FORECAST_INTERVAL', v:'5 MIN', cls:''},{k:'PIPELINE_SOURCES', v:'3 STREAMS', cls:''},
+  {k:'KAFKA_TOPICS', v:'8', cls:''},{k:'SHARPE_vs_NASDAQ', v:'+5.43Δ', cls:'g'},
+];
+const inner = document.getElementById('ticker-inner');
+const chunk = tickData.map(d => `<span class="tick-item"><span class="tick-key">${d.k}</span><span class="tick-sep">▸</span><span class="tick-val ${d.cls}">${d.v}</span></span>`).join('');
+inner.innerHTML = chunk + chunk; // double for seamless loop
+
+/* ── CANVAS BACKGROUND ───────────────────────────────── */
+const cv = document.getElementById('bg-canvas');
+const ctx = cv.getContext('2d');
+
+function resize() { cv.width = innerWidth; cv.height = innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+// Orbs
+const ORBS = [
+  {x:.15,y:.25,r:320,c:'rgba(82,158,255,',a:.09,da:.00008,dx:.00005,dy:.00008},
+  {x:.75,y:.65,r:280,c:'rgba(155,125,248,',a:.07,da:.00007,dx:-.00007,dy:.00004},
+  {x:.5,y:.8,r:240,c:'rgba(237,178,39,',a:.055,da:.00009,dx:.00006,dy:-.00007},
+  {x:.85,y:.1,r:200,c:'rgba(46,203,122,',a:.055,da:.00006,dx:-.00005,dy:.00009},
+];
+let orbT = 0;
+
+// Stars
+const STARS = Array.from({length:280},() => ({
+  x:Math.random(),y:Math.random(),r:Math.random()*1.3+.2,
+  a:Math.random(),da:(Math.random()*.004+.001)*(Math.random()<.5?1:-1),
+  vx:(Math.random()-.5)*.00015,vy:(Math.random()-.5)*.00015,
+}));
+
+// Shooting stars
+const SHOOTS = [];
+function spawnShoot(){
+  SHOOTS.push({x:Math.random(),y:Math.random()*.5,len:.1+Math.random()*.07,spd:.012+Math.random()*.006,ang:Math.PI/7,life:1});
+  setTimeout(spawnShoot, 3000+Math.random()*5000);
+}
+spawnShoot();
+
+// Connections between nearby stars
+function drawConnections(w,h){
+  for(let i=0;i<70;i++) for(let j=i+1;j<70;j++){
+    const dx=(STARS[i].x-STARS[j].x)*w, dy=(STARS[i].y-STARS[j].y)*h;
+    const d=Math.sqrt(dx*dx+dy*dy);
+    if(d<90){
+      ctx.beginPath();
+      ctx.moveTo(STARS[i].x*w,STARS[i].y*h);
+      ctx.lineTo(STARS[j].x*w,STARS[j].y*h);
+      ctx.strokeStyle=`rgba(82,158,255,${(1-d/90)*.07})`;
+      ctx.lineWidth=.5;ctx.stroke();
+    }
+  }
+}
+
+(function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  orbT += .0006;
+
+  // orbs
+  ORBS.forEach((o,i) => {
+    const ox = (o.x + Math.sin(orbT*(i+1)*.7)*0.12) * cv.width;
+    const oy = (o.y + Math.cos(orbT*(i+1)*.5)*0.09) * cv.height;
+    const g = ctx.createRadialGradient(ox,oy,0,ox,oy,o.r);
+    g.addColorStop(0, o.c+o.a+')');
+    g.addColorStop(1, o.c+'0)');
+    ctx.beginPath();ctx.arc(ox,oy,o.r,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+  });
+
+  drawConnections(cv.width,cv.height);
+
+  // stars
+  STARS.forEach(s => {
+    s.a += s.da; if(s.a>1||s.a<0) s.da*=-1;
+    s.x += s.vx; s.y += s.vy;
+    if(s.x<0) s.x=1; if(s.x>1) s.x=0;
+    if(s.y<0) s.y=1; if(s.y>1) s.y=0;
+    ctx.beginPath();
+    ctx.arc(s.x*cv.width,s.y*cv.height,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(180,220,255,${s.a*.65})`;ctx.fill();
+  });
+
+  // shooting stars
+  for(let i=SHOOTS.length-1;i>=0;i--){
+    const s=SHOOTS[i]; s.life-=.014;
+    s.x+=Math.cos(s.ang)*s.spd; s.y+=Math.sin(s.ang)*s.spd;
+    if(s.life<=0||s.x>1||s.y>1){SHOOTS.splice(i,1);continue;}
+    const sx=s.x*cv.width,sy=s.y*cv.height,sl=s.len*cv.width;
+    const grd=ctx.createLinearGradient(sx-Math.cos(s.ang)*sl,sy-Math.sin(s.ang)*sl,sx,sy);
+    grd.addColorStop(0,'transparent');grd.addColorStop(1,`rgba(200,230,255,${s.life*.9})`);
+    ctx.beginPath();ctx.moveTo(sx-Math.cos(s.ang)*sl,sy-Math.sin(s.ang)*sl);ctx.lineTo(sx,sy);
+    ctx.strokeStyle=grd;ctx.lineWidth=1.6;ctx.stroke();
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ── TYPING ──────────────────────────────────────────── */
+const roles=['Automation Engineer','AI / ML Engineer','Data Scientist','LLM Systems Builder','Industrial AI Builder'];
+let ri=0,ci=0,del=false;
+const typEl=document.getElementById('typeEl');
+function doType(){
+  const w=roles[ri];
+  if(!del){typEl.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(doType,2000);return;}setTimeout(doType,72);}
+  else{typEl.textContent=w.slice(0,--ci);if(ci===0){del=false;ri=(ri+1)%roles.length;setTimeout(doType,450);return;}setTimeout(doType,40);}
+}
+setTimeout(doType,2300);
+
+/* ── NAV SMOOTH SCROLL + ACTIVE ──────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click',e => {
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+const navAs=document.querySelectorAll('#navlinks a');
+const sects=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',() => {
+  let cur='';
+  sects.forEach(s=>{if(scrollY>=s.offsetTop-150) cur=s.id;});
+  navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+
+/* ── SCROLL REVEAL ───────────────────────────────────── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('in'),i*65);
+  });
+},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+/* ── 3D TILT ─────────────────────────────────────────── */
+function tilt(sel,mag=9){
+  document.querySelectorAll(sel).forEach(c=>{
+    c.addEventListener('mousemove',e=>{
+      const r=c.getBoundingClientRect();
+      const x=((e.clientX-r.left)/r.width-.5)*2;
+      const y=((e.clientY-r.top)/r.height-.5)*2;
+      c.style.transform=`perspective(860px) rotateY(${x*mag}deg) rotateX(${-y*mag}deg) translateY(-5px) scale(1.01)`;
+      c.style.transition='transform .08s';
+    });
+    c.addEventListener('mouseleave',()=>{
+      c.style.transform='';
+      c.style.transition='transform .55s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s';
+    });
+  });
+}
+
+/* ── COUNTER ANIMATION ───────────────────────────────── */
+function animCounter(el){
+  const end=parseFloat(el.dataset.count);
+  const suf=el.dataset.suffix||'';
+  let cur=0,start=null;
+  function step(ts){
+    if(!start) start=ts;
+    const p=Math.min((ts-start)/1200,1);
+    const eased=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(eased*end)+suf;
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && e.target.dataset.count){
+      animCounter(e.target);counterObs.unobserve(e.target);
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>counterObs.observe(el));
+
+/* ══════════════════════════════════════════════════════
+   PROJECTS DATA
+══════════════════════════════════════════════════════ */
 const PROJECTS = [
   {
-    svg: `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <style>
-          @keyframes rise{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
-          @keyframes linedraw{from{stroke-dashoffset:400}to{stroke-dashoffset:0}}
-          @keyframes nfade{0%{opacity:0;transform:scale(0.5)}100%{opacity:1;transform:scale(1)}}
-          @keyframes pulse2{0%,100%{r:5}50%{r:7}}
-        </style>
-        <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#5aa8ff" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#5aa8ff" stop-opacity="0"/>
-        </linearGradient>
-        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#f0b429" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#f0b429" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <!-- Candlestick chart -->
-      <g opacity="0.25">
-        <rect x="18" y="30" width="400" height="1" fill="#5aa8ff"/>
-        <rect x="18" y="70" width="400" height="1" fill="#5aa8ff"/>
-        <rect x="18" y="110" width="400" height="1" fill="#5aa8ff"/>
-        <rect x="18" y="150" width="400" height="1" fill="#5aa8ff"/>
-      </g>
-      <!-- Candles -->
-      <g style="animation:rise 0.6s ease-out both">
-        <rect x="30" y="120" width="12" height="40" fill="#f87171" rx="1"/>
-        <line x1="36" y1="110" x2="36" y2="170" stroke="#f87171" stroke-width="1.5"/>
-      </g>
-      <g style="animation:rise 0.6s 0.08s ease-out both">
-        <rect x="56" y="100" width="12" height="30" fill="#3dd68c" rx="1"/>
-        <line x1="62" y1="90" x2="62" y2="140" stroke="#3dd68c" stroke-width="1.5"/>
-      </g>
-      <g style="animation:rise 0.6s 0.16s ease-out both">
-        <rect x="82" y="110" width="12" height="35" fill="#f87171" rx="1"/>
-        <line x1="88" y1="98" x2="88" y2="155" stroke="#f87171" stroke-width="1.5"/>
-      </g>
-      <g style="animation:rise 0.6s 0.24s ease-out both">
-        <rect x="108" y="85" width="12" height="30" fill="#3dd68c" rx="1"/>
-        <line x1="114" y1="74" x2="114" y2="124" stroke="#3dd68c" stroke-width="1.5"/>
-      </g>
-      <g style="animation:rise 0.6s 0.32s ease-out both">
-        <rect x="134" y="70" width="12" height="25" fill="#3dd68c" rx="1"/>
-        <line x1="140" y1="60" x2="140" y2="102" stroke="#3dd68c" stroke-width="1.5"/>
-      </g>
-      <g style="animation:rise 0.6s 0.40s ease-out both">
-        <rect x="160" y="60" width="12" height="28" fill="#3dd68c" rx="1"/>
-        <line x1="166" y1="48" x2="166" y2="96" stroke="#3dd68c" stroke-width="1.5"/>
-      </g>
-      <g style="animation:rise 0.6s 0.48s ease-out both">
-        <rect x="186" y="75" width="12" height="32" fill="#f87171" rx="1"/>
-        <line x1="192" y1="64" x2="192" y2="116" stroke="#f87171" stroke-width="1.5"/>
-      </g>
-      <g style="animation:rise 0.6s 0.56s ease-out both">
-        <rect x="212" y="48" width="12" height="38" fill="#3dd68c" rx="1"/>
-        <line x1="218" y1="36" x2="218" y2="95" stroke="#3dd68c" stroke-width="1.5"/>
-      </g>
-      <g style="animation:rise 0.6s 0.64s ease-out both">
-        <rect x="238" y="38" width="12" height="30" fill="#3dd68c" rx="1"/>
-        <line x1="244" y1="26" x2="244" y2="76" stroke="#3dd68c" stroke-width="1.5"/>
-      </g>
-      <!-- AI annotation line -->
-      <path d="M 36 145 L 88 130 L 140 88 L 192 90 L 244 50" stroke="#f0b429" stroke-width="1.5" fill="none" stroke-dasharray="400" style="animation:linedraw 1.2s 0.5s ease-out forwards;stroke-dashoffset:400"/>
-      <!-- Agent nodes -->
-      <g style="animation:nfade 0.5s 1.2s ease-out both;opacity:0">
-        <circle cx="300" cy="60" r="5" fill="#5aa8ff" opacity="0.9"/>
-        <circle cx="340" cy="40" r="5" fill="#5aa8ff" opacity="0.9"/>
-        <circle cx="340" cy="80" r="5" fill="#f0b429" opacity="0.9"/>
-        <circle cx="370" cy="60" r="5" fill="#3dd68c" opacity="0.9"/>
-        <circle cx="300" cy="100" r="5" fill="#a78bfa" opacity="0.9"/>
-        <circle cx="300" cy="130" r="5" fill="#f87171" opacity="0.9"/>
-        <line x1="300" y1="60" x2="340" y2="40" stroke="#5aa8ff" stroke-width="0.8" opacity="0.5"/>
-        <line x1="300" y1="60" x2="340" y2="80" stroke="#f0b429" stroke-width="0.8" opacity="0.5"/>
-        <line x1="340" y1="40" x2="370" y2="60" stroke="#3dd68c" stroke-width="0.8" opacity="0.5"/>
-        <line x1="340" y1="80" x2="370" y2="60" stroke="#3dd68c" stroke-width="0.8" opacity="0.5"/>
-        <line x1="300" y1="100" x2="370" y2="60" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/>
-        <line x1="300" y1="130" x2="370" y2="60" stroke="#f87171" stroke-width="0.8" opacity="0.5"/>
-        <text x="276" y="64" fill="#5aa8ff" font-size="7" opacity="0.8" font-family="monospace">MOM</text>
-        <text x="276" y="104" fill="#a78bfa" font-size="7" opacity="0.8" font-family="monospace">LIQ</text>
-        <text x="276" y="134" fill="#f87171" font-size="7" opacity="0.8" font-family="monospace">RISK</text>
-        <text x="344" y="38" fill="#5aa8ff" font-size="7" opacity="0.8" font-family="monospace">CAT</text>
-        <text x="344" y="84" fill="#f0b429" font-size="7" opacity="0.8" font-family="monospace">TECH</text>
-        <text x="375" y="64" fill="#3dd68c" font-size="7" opacity="0.8" font-family="monospace">▶</text>
-      </g>
-      <!-- Labels -->
-      <text x="20" y="200" fill="#5aa8ff" font-size="9" opacity="0.5" font-family="monospace">NASDAQ-100 +0.59%</text>
-      <text x="145" y="200" fill="#f0b429" font-size="9" opacity="0.9" font-family="monospace">AI Portfolio +3.28%</text>
-      <text x="290" y="200" fill="#3dd68c" font-size="9" opacity="0.7" font-family="monospace">↑ 9 WEEKS LIVE</text>
-    </svg>`,
-    id: 'agentic',
-    cat: 'ai',
-    thumbClass: 'thumb-ai',
-    orb1: 'rgba(90,168,255,0.35)',
-    orb2: 'rgba(240,180,41,0.25)',
-    badge: 'Live-validated · 9 weeks',
-    metrics: ['+3.28% avg weekly', '+32.99% cumulative', 'Sharpe 6.02'],
-    type: 'Agentic AI · Financial ML',
-    typeColor: 'var(--cyan)',
-    tagColor: 'var(--cyan)',
-    tagBorder: 'rgba(90,168,255,0.28)',
-    title: 'Agentic AI Framework for Weekly Stock Portfolio Selection',
-    period: 'APR 2025 — OCT 2025',
-    desc: '5-Agent LLM pipeline analyzing 90 U.S. tech stocks weekly. Each agent — Momentum, Catalyst, Technical, Liquidity, Risk — runs on Llama 3.3-70B via Groq and returns structured JSON. Live-tested 9 weeks, beating NASDAQ-100, S&P 500, and XLK on cumulative return.',
-    tags: ['Agentic AI', 'LangGraph', 'Llama 3.3-70B', 'Groq', 'PydanticAI', 'yfinance'],
-    github: 'https://github.com/KunakornMart/AgenticAI-Stock-Selection',
-    highlights: [
-      'Live 9-week validation: buy Monday 09:30 ET, sell Friday 16:00 ET — real capital, not backtest',
-      '+3.28% avg weekly vs NASDAQ-100 +0.59%, S&P 500 +0.69%, XLK +0.86%',
-      '+32.99% cumulative return · Sharpe Ratio 6.02 (annualized) · Max drawdown –1.40%',
-      'Win rate 7 of 9 weeks · ~45 min runtime for full 90-stock sweep',
-      'Fully explainable: each recommendation includes per-agent scorecard and rationale',
-      'Universe: 90 NASDAQ tech stocks across 7 sub-sectors (MegaTech, AI/Semi, Cloud, FinTech…)',
-    ],
-    stack: [
-      'Llama 3.3-70B via Groq API (temperature 0.1, zero-shot)',
-      'LangGraph for sequential agent orchestration',
-      'PydanticAI for schema enforcement across agent outputs',
-      'yfinance (OHLCV + fundamentals) · Alpha Vantage · NewsAPI',
-      'pandas-ta for local technical indicator calculations',
-      'Python 3.11 · Google Colab Pro (T4 GPU)',
-    ],
+    id:'agentic',cat:'ai',bg:'tbg-ai',
+    badge:'Live-validated · 9 Weeks',
+    metrics:['+3.28% avg/week','+32.99% cumulative','Sharpe 6.02'],
+    tc:'var(--cyan)',pc:'var(--cyan)',pb:'rgba(82,158,255,.25)',
+    type:'Agentic AI · Financial ML',
+    title:'Agentic AI Framework for Weekly Stock Portfolio Selection',
+    period:'APR 2025 — OCT 2025',
+    desc:'5-agent LLM pipeline (Momentum, Catalyst, Technical, Liquidity, Risk) analyzing 90 NASDAQ tech stocks on Llama 3.3-70B via Groq. Live-validated 9 consecutive weeks — beating NASDAQ-100, S&P 500, and XLK.',
+    tags:['Agentic AI','LangGraph','Llama 3.3-70B','Groq','PydanticAI','yfinance','pandas-ta'],
+    github:'https://github.com/KunakornMart/AgenticAI-Stock-Selection',
+    yt_en:'https://youtu.be/8hXI0siDsng?si=jQ4KP8zEVjyX_1pW',
+    yt_th:'https://youtu.be/8hXI0siDsng?si=jQ4KP8zEVjyX_1pW',
+    hi:['Live 9-week validation: buy Mon 09:30 ET, sell Fri 16:00 ET — real capital, no backtest','Avg weekly return +3.28% vs NASDAQ-100 +0.59% · S&P 500 +0.69% · XLK +0.86%','+32.99% cumulative return · Sharpe Ratio 6.02 annualized · Max drawdown −1.40%','Win rate 7/9 weeks (77.8%) · ~45 min for full 90-stock sweep','Fully explainable: per-agent scorecard + rationale for every recommendation','Universe: 90 NASDAQ tech stocks across 7 sub-sectors'],
+    st:['Llama 3.3-70B via Groq API (temp 0.1, zero-shot)','LangGraph for sequential agent orchestration','PydanticAI for schema enforcement across agents','yfinance (OHLCV + fundamentals) · Alpha Vantage · NewsAPI','pandas-ta for technical indicator calculations','Python 3.11 · Google Colab Pro'],
+    svg:`<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><style>@keyframes rise{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}@keyframes draw{from{stroke-dashoffset:500}to{stroke-dashoffset:0}}@keyframes pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}</style></defs><line x1="28" y1="175" x2="390" y2="175" stroke="#2e4060" stroke-width=".8"/><line x1="28" y1="135" x2="390" y2="135" stroke="#2e4060" stroke-width=".5" stroke-dasharray="3,3"/><line x1="28" y1="95" x2="390" y2="95" stroke="#2e4060" stroke-width=".5" stroke-dasharray="3,3"/><g style="animation:rise .55s .0s ease-out both"><rect x="32" y="128" width="14" height="47" fill="#f06f6f" rx="1.5" opacity=".7"/></g><g style="animation:rise .55s .08s ease-out both"><rect x="60" y="110" width="14" height="65" fill="#2ecb7a" rx="1.5" opacity=".75"/></g><g style="animation:rise .55s .16s ease-out both"><rect x="88" y="118" width="14" height="57" fill="#f06f6f" rx="1.5" opacity=".7"/></g><g style="animation:rise .55s .24s ease-out both"><rect x="116" y="88" width="14" height="87" fill="#2ecb7a" rx="1.5" opacity=".75"/></g><g style="animation:rise .55s .32s ease-out both"><rect x="144" y="72" width="14" height="103" fill="#2ecb7a" rx="1.5" opacity=".8"/></g><g style="animation:rise .55s .40s ease-out both"><rect x="172" y="62" width="14" height="113" fill="#2ecb7a" rx="1.5" opacity=".85"/></g><g style="animation:rise .55s .48s ease-out both"><rect x="200" y="80" width="14" height="95" fill="#f06f6f" rx="1.5" opacity=".7"/></g><g style="animation:rise .55s .56s ease-out both"><rect x="228" y="48" width="14" height="127" fill="#2ecb7a" rx="1.5" opacity=".9"/></g><g style="animation:rise .55s .64s ease-out both"><rect x="256" y="36" width="14" height="139" fill="#2ecb7a" rx="1.5" opacity=".95"/></g><path d="M39 152 68 138 103 124 130 96 151 78 179 68 207 84 235 52 263 42" stroke="#edb227" stroke-width="2.2" fill="none" stroke-dasharray="500" style="animation:draw 1.4s .5s ease-out forwards;stroke-dashoffset:500"/><circle cx="263" cy="42" r="4" fill="#edb227" style="animation:pop .3s 1.8s ease-out both;opacity:0"/><g style="animation:pop .4s 2s ease-out both;opacity:0"><circle cx="315" cy="65" r="6" fill="#529eff" opacity=".9"/><circle cx="352" cy="44" r="5" fill="#529eff" opacity=".85"/><circle cx="352" cy="86" r="5" fill="#edb227" opacity=".85"/><circle cx="382" cy="65" r="5" fill="#2ecb7a" opacity=".9"/><circle cx="315" cy="104" r="5" fill="#9b7df8" opacity=".85"/><circle cx="315" cy="134" r="5" fill="#f06f6f" opacity=".85"/><line x1="315" y1="65" x2="352" y2="44" stroke="#529eff" stroke-width=".9" opacity=".5"/><line x1="315" y1="65" x2="352" y2="86" stroke="#edb227" stroke-width=".9" opacity=".5"/><line x1="352" y1="44" x2="382" y2="65" stroke="#2ecb7a" stroke-width=".9" opacity=".5"/><line x1="352" y1="86" x2="382" y2="65" stroke="#2ecb7a" stroke-width=".9" opacity=".5"/><line x1="315" y1="104" x2="382" y2="65" stroke="#9b7df8" stroke-width=".9" opacity=".5"/><line x1="315" y1="134" x2="382" y2="65" stroke="#f06f6f" stroke-width=".9" opacity=".5"/><text x="290" y="69" fill="#529eff" font-size="7.5" font-family="JetBrains Mono,monospace">MOM</text><text x="290" y="108" fill="#9b7df8" font-size="7.5" font-family="JetBrains Mono,monospace">LIQ</text><text x="290" y="138" fill="#f06f6f" font-size="7.5" font-family="JetBrains Mono,monospace">RISK</text><text x="358" y="42" fill="#529eff" font-size="7.5" font-family="JetBrains Mono,monospace">CAT</text><text x="358" y="90" fill="#edb227" font-size="7.5" font-family="JetBrains Mono,monospace">TECH</text></g><text x="30" y="210" fill="#529eff" font-size="9" opacity=".5" font-family="JetBrains Mono,monospace">NASDAQ +0.59%</text><text x="140" y="210" fill="#edb227" font-size="9" opacity=".95" font-family="JetBrains Mono,monospace">AI Portfolio +3.28%</text><text x="295" y="210" fill="#2ecb7a" font-size="9" opacity=".75" font-family="JetBrains Mono,monospace">9 WKS LIVE</text></svg>`
   },
   {
-    svg: `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <style>
-          @keyframes barUp{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
-          @keyframes ftxt{from{opacity:0}to{opacity:1}}
-        </style>
-      </defs>
-      <!-- Model accuracy bar chart -->
-      <!-- Y labels -->
-      <text x="8" y="185" fill="#8499bb" font-size="7" font-family="monospace">0%</text>
-      <text x="8" y="140" fill="#8499bb" font-size="7" font-family="monospace">50%</text>
-      <text x="8" y="98" fill="#8499bb" font-size="7" font-family="monospace">80%</text>
-      <text x="8" y="62" fill="#8499bb" font-size="7" font-family="monospace">90%</text>
-      <!-- Grid lines -->
-      <line x1="35" y1="185" x2="395" y2="185" stroke="#2e3d5a" stroke-width="0.8"/>
-      <line x1="35" y1="140" x2="395" y2="140" stroke="#2e3d5a" stroke-width="0.5"/>
-      <line x1="35" y1="98" x2="395" y2="98" stroke="#2e3d5a" stroke-width="0.5"/>
-      <line x1="35" y1="62" x2="395" y2="62" stroke="#2e3d5a" stroke-width="0.5"/>
-      <!-- Bars: each model -->
-      <!-- CNN 73% -->
-      <g style="animation:barUp 0.5s ease-out both">
-        <rect x="42" y="120" width="36" height="65" fill="#5aa8ff" opacity="0.55" rx="2"/>
-      </g>
-      <text x="55" y="116" fill="#5aa8ff" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 0.5s both;opacity:0">73</text>
-      <text x="46" y="197" fill="#8499bb" font-size="7" font-family="monospace">CNN</text>
-      <!-- GRU 76% -->
-      <g style="animation:barUp 0.5s 0.1s ease-out both">
-        <rect x="90" y="110" width="36" height="75" fill="#5aa8ff" opacity="0.65" rx="2"/>
-      </g>
-      <text x="100" y="106" fill="#5aa8ff" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 0.6s both;opacity:0">76</text>
-      <text x="94" y="197" fill="#8499bb" font-size="7" font-family="monospace">GRU</text>
-      <!-- BiLSTM 79% -->
-      <g style="animation:barUp 0.5s 0.2s ease-out both">
-        <rect x="138" y="101" width="36" height="84" fill="#5aa8ff" opacity="0.75" rx="2"/>
-      </g>
-      <text x="147" y="97" fill="#5aa8ff" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 0.7s both;opacity:0">79</text>
-      <text x="138" y="197" fill="#8499bb" font-size="7" font-family="monospace">BiLSTM</text>
-      <!-- WangchanBERTa 86.57% — BEST -->
-      <g style="animation:barUp 0.5s 0.3s ease-out both">
-        <rect x="186" y="72" width="44" height="113" fill="#a78bfa" opacity="0.9" rx="2"/>
-        <!-- glow -->
-        <rect x="186" y="72" width="44" height="113" fill="none" stroke="#a78bfa" stroke-width="1.5" rx="2" opacity="0.6"/>
-      </g>
-      <text x="193" y="68" fill="#a78bfa" font-size="9" font-weight="bold" font-family="monospace" style="animation:ftxt 0.5s 0.8s both;opacity:0">86.6</text>
-      <text x="183" y="197" fill="#a78bfa" font-size="6.5" font-family="monospace">WangchanBERTa</text>
-      <!-- GPT-3.5 70% -->
-      <g style="animation:barUp 0.5s 0.4s ease-out both">
-        <rect x="244" y="127" width="36" height="58" fill="#f0b429" opacity="0.55" rx="2"/>
-      </g>
-      <text x="253" y="123" fill="#f0b429" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 0.9s both;opacity:0">70</text>
-      <text x="244" y="197" fill="#8499bb" font-size="7" font-family="monospace">GPT-3.5</text>
-      <!-- GPT-4o base 76% -->
-      <g style="animation:barUp 0.5s 0.5s ease-out both">
-        <rect x="292" y="110" width="36" height="75" fill="#f0b429" opacity="0.7" rx="2"/>
-      </g>
-      <text x="302" y="106" fill="#f0b429" font-size="8" opacity="0.9" font-family="monospace" style="animation:ftxt 0.5s 1.0s both;opacity:0">76</text>
-      <text x="289" y="197" fill="#8499bb" font-size="7" font-family="monospace">GPT-4o</text>
-      <!-- Fine-tuned GPT-4o 81% F1 89.17% -->
-      <g style="animation:barUp 0.5s 0.6s ease-out both">
-        <rect x="340" y="99" width="40" height="86" fill="#f0b429" opacity="0.9" rx="2"/>
-        <rect x="340" y="99" width="40" height="86" fill="none" stroke="#f0b429" stroke-width="1.5" rx="2" opacity="0.5"/>
-      </g>
-      <text x="343" y="95" fill="#f0b429" font-size="8" font-family="monospace" style="animation:ftxt 0.5s 1.1s both;opacity:0">81.1</text>
-      <text x="335" y="197" fill="#f0b429" font-size="6.5" font-family="monospace">GPT-4o FT</text>
-      <!-- Legend -->
-      <rect x="42" y="14" width="10" height="10" fill="#a78bfa" rx="1"/>
-      <text x="56" y="23" fill="#a78bfa" font-size="8" font-family="monospace">Discriminative (Best: WangchanBERTa)</text>
-      <rect x="220" y="14" width="10" height="10" fill="#f0b429" rx="1"/>
-      <text x="234" y="23" fill="#f0b429" font-size="8" font-family="monospace">Generative (GPT)</text>
-    </svg>`,
-    id: 'thaisarc',
-    cat: 'nlp',
-    thumbClass: 'thumb-nlp',
-    orb1: 'rgba(167,139,250,0.35)',
-    orb2: 'rgba(240,180,41,0.2)',
-    badge: 'Thai NLP · Open dataset',
-    metrics: ['1,028 headlines', '92% reliability', 'WangchanBERTa 86.57%'],
-    type: 'Thai NLP · Deep Learning',
-    typeColor: 'var(--purple)',
-    tagColor: 'var(--purple)',
-    tagBorder: 'rgba(167,139,250,0.28)',
-    title: 'ThaiSarc: Sarcasm Detection in Thai News Headlines',
-    period: 'NOV 2024 — APR 2025',
-    desc: 'Built ThaiSarc_V1, a balanced dataset of 1,028 Thai political news headlines from 12 sources, annotated with 92% inter-annotator reliability. Ran a full benchmark across discriminative (CNN, GRU, BiLSTM, WangchanBERTa) and generative (GPT-3.5, GPT-4o, fine-tuned GPT-4o) models.',
-    tags: ['Thai NLP', 'BERT', 'WangchanBERTa', 'GPT-4o', 'CNN / GRU / LSTM', 'PyThaiNLP'],
-    github: 'https://github.com/KunakornMart/ThaiSarc_V1',
-    highlights: [
-      '1,028 headlines: 514 sarcastic / 514 non-sarcastic, perfectly balanced',
-      '12 online news sources · stratified random sampling via Web Scraper.io',
-      '2-hour annotator training session → 92% inter-annotator reliability',
-      'WangchanBERTa: 86.57% accuracy, 87.11% F1 (best discriminative)',
-      'Fine-tuned GPT-4o-2024-08-06: 81.11% accuracy, 89.17% F1 (highest F1 overall via recall 98.59%)',
-      'Main finding: Thai-specific encoder models outperform general-purpose generative LLMs at this scale',
-    ],
-    stack: [
-      'CNN · GRU · BiLSTM · CNN-BiLSTM (discriminative)',
-      'WangchanBERTa (Thai-specific encoder)',
-      'GPT-3.5 · GPT-4o · fine-tuned GPT-4o-2024-08-06 (generative)',
-      'PyThaiNLP for Thai text preprocessing',
-      'Python · scikit-learn · TensorFlow / PyTorch',
-      'Web Scraper.io for data collection',
-    ],
+    id:'thaisarc',cat:'nlp',bg:'tbg-nlp',
+    badge:'Thai NLP · Open Dataset',
+    metrics:['1,028 headlines','92% reliability','WangchanBERTa 86.57%'],
+    tc:'var(--pur)',pc:'var(--pur)',pb:'rgba(155,125,248,.25)',
+    type:'Thai NLP · Deep Learning',
+    title:'ThaiSarc: Sarcasm Detection in Thai News Headlines',
+    period:'NOV 2024 — APR 2025',
+    desc:'ThaiSarc_V1 — 1,028 balanced Thai political news headlines from 12 sources, annotated with 92% inter-annotator reliability. Full benchmark: CNN/GRU/BiLSTM/WangchanBERTa vs GPT-3.5/GPT-4o/fine-tuned GPT-4o.',
+    tags:['Thai NLP','WangchanBERTa','BERT','Fine-tuned GPT-4o','CNN/GRU/LSTM','PyThaiNLP'],
+    github:'https://github.com/KunakornMart/ThaiSarc_V1',
+    hi:['1,028 headlines: 514 sarcastic / 514 non-sarcastic — perfectly balanced','12 online news sources · stratified random sampling via Web Scraper.io','2-hr annotator training + 100-headline calibration set → 92% inter-annotator reliability','WangchanBERTa: 86.57% accuracy, 87.11% F1 (best discriminative model)','Fine-tuned GPT-4o-2024-08-06: 81.11% acc, 89.17% F1 — highest F1 via recall 98.59%','Finding: Thai-specific encoders outperform general-purpose LLMs at this scale'],
+    st:['CNN · GRU · BiLSTM · CNN-BiLSTM','WangchanBERTa (Thai-specific encoder)','GPT-3.5 · GPT-4o · fine-tuned GPT-4o-2024-08-06','PyThaiNLP for Thai text preprocessing','TensorFlow · PyTorch · scikit-learn','Web Scraper.io for structured data collection'],
+    svg:`<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><style>@keyframes barX{0%{opacity:0;transform:scaleY(0);transform-origin:bottom}100%{opacity:1;transform:scaleY(1);transform-origin:bottom}}@keyframes ft{from{opacity:0}to{opacity:1}}</style></defs><line x1="38" y1="188" x2="392" y2="188" stroke="#2e4060" stroke-width=".8"/><line x1="38" y1="148" x2="392" y2="148" stroke="#2e4060" stroke-width=".5" stroke-dasharray="3,3"/><line x1="38" y1="108" x2="392" y2="108" stroke="#2e4060" stroke-width=".5" stroke-dasharray="3,3"/><line x1="38" y1="76" x2="392" y2="76" stroke="#2e4060" stroke-width=".5" stroke-dasharray="3,3"/><text x="8" y="192" fill="#2e4060" font-size="7" font-family="JetBrains Mono,monospace">0</text><text x="8" y="152" fill="#2e4060" font-size="7" font-family="JetBrains Mono,monospace">50</text><text x="8" y="112" fill="#2e4060" font-size="7" font-family="JetBrains Mono,monospace">75</text><text x="8" y="80" font-size="7" fill="#2e4060" font-family="JetBrains Mono,monospace">90</text><g style="animation:barX .5s .0s ease-out both"><rect x="46" y="128" width="38" height="60" fill="#529eff" opacity=".5" rx="2"/></g><text x="58" y="124" fill="#529eff" font-size="8.5" font-family="JetBrains Mono,monospace" style="animation:ft .4s .5s both;opacity:0">73</text><text x="52" y="202" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace">CNN</text><g style="animation:barX .5s .1s ease-out both"><rect x="98" y="116" width="38" height="72" fill="#529eff" opacity=".6" rx="2"/></g><text x="110" y="112" fill="#529eff" font-size="8.5" font-family="JetBrains Mono,monospace" style="animation:ft .4s .6s both;opacity:0">76</text><text x="104" y="202" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace">GRU</text><g style="animation:barX .5s .2s ease-out both"><rect x="150" y="107" width="38" height="81" fill="#529eff" opacity=".7" rx="2"/></g><text x="161" y="103" fill="#529eff" font-size="8.5" font-family="JetBrains Mono,monospace" style="animation:ft .4s .7s both;opacity:0">79</text><text x="151" y="202" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace">BiLSTM</text><g style="animation:barX .5s .3s ease-out both"><rect x="202" y="73" width="46" height="115" fill="#9b7df8" rx="2"/><rect x="202" y="73" width="46" height="115" fill="none" stroke="#9b7df8" stroke-width="1.5" rx="2" opacity=".4"/></g><text x="212" y="68" fill="#9b7df8" font-size="9" font-weight="bold" font-family="JetBrains Mono,monospace" style="animation:ft .4s .8s both;opacity:0">86.6</text><text x="196" y="202" fill="#9b7df8" font-size="7" font-family="JetBrains Mono,monospace">WangchanBERTa</text><g style="animation:barX .5s .4s ease-out both"><rect x="262" y="128" width="32" height="60" fill="#edb227" opacity=".5" rx="2"/></g><text x="270" y="124" fill="#edb227" font-size="8.5" font-family="JetBrains Mono,monospace" style="animation:ft .4s .9s both;opacity:0">70</text><text x="263" y="202" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace">GPT-3.5</text><g style="animation:barX .5s .5s ease-out both"><rect x="305" y="115" width="32" height="73" fill="#edb227" opacity=".68" rx="2"/></g><text x="313" y="111" fill="#edb227" font-size="8.5" font-family="JetBrains Mono,monospace" style="animation:ft .4s 1s both;opacity:0">76</text><text x="305" y="202" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace">GPT-4o</text><g style="animation:barX .5s .6s ease-out both"><rect x="348" y="100" width="38" height="88" fill="#edb227" opacity=".9" rx="2"/><rect x="348" y="100" width="38" height="88" fill="none" stroke="#edb227" stroke-width="1.5" rx="2" opacity=".4"/></g><text x="352" y="95" fill="#edb227" font-size="9" font-family="JetBrains Mono,monospace" style="animation:ft .4s 1.1s both;opacity:0">81.1</text><text x="343" y="202" fill="#edb227" font-size="7" font-family="JetBrains Mono,monospace">GPT-4o FT</text><text x="46" y="20" fill="#9b7df8" font-size="8" font-family="JetBrains Mono,monospace">■ Discriminative</text><text x="180" y="20" fill="#edb227" font-size="8" font-family="JetBrains Mono,monospace">■ Generative (GPT)</text><text x="46" y="38" fill="#7a94bb" font-size="7.5" font-family="JetBrains Mono,monospace">Best: WangchanBERTa 86.57% acc · 87.11% F1</text></svg>`
   },
   {
-    svg: `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <style>@keyframes ldraw{from{stroke-dashoffset:800}to{stroke-dashoffset:0}}</style>
-        <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#f0b429" stop-opacity="0.25"/>
-          <stop offset="100%" stop-color="#f0b429" stop-opacity="0"/>
-        </linearGradient>
-        <linearGradient id="pl" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#5aa8ff" stop-opacity="0.2"/>
-          <stop offset="100%" stop-color="#5aa8ff" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <!-- Grid -->
-      <line x1="30" y1="40" x2="390" y2="40" stroke="#2e3d5a" stroke-width="0.6"/>
-      <line x1="30" y1="80" x2="390" y2="80" stroke="#2e3d5a" stroke-width="0.6"/>
-      <line x1="30" y1="120" x2="390" y2="120" stroke="#2e3d5a" stroke-width="0.6"/>
-      <line x1="30" y1="160" x2="390" y2="160" stroke="#2e3d5a" stroke-width="0.6"/>
-      <!-- Actual price line (gold) -->
-      <path d="M 30 140 C 50 130, 70 145, 90 120 C 110 95, 120 110, 140 85 C 160 60, 175 70, 190 55 C 205 40, 215 65, 230 50 C 245 35, 260 60, 275 45 C 290 30, 310 55, 330 40 C 350 25, 370 50, 390 38"
-            fill="none" stroke="#f0b429" stroke-width="2.2"
-            stroke-dasharray="800"
-            style="animation:ldraw 2s ease-out forwards"/>
-      <!-- Fill under actual -->
-      <path d="M 30 140 C 50 130, 70 145, 90 120 C 110 95, 120 110, 140 85 C 160 60, 175 70, 190 55 C 205 40, 215 65, 230 50 C 245 35, 260 60, 275 45 C 290 30, 310 55, 330 40 C 350 25, 370 50, 390 38 L 390 175 L 30 175 Z"
-            fill="url(#bg1)" opacity="0.7"/>
-      <!-- Prophet forecast (cyan) -->
-      <path d="M 30 145 C 55 132, 75 148, 95 124 C 115 100, 124 114, 144 90 C 162 66, 177 74, 192 60 C 207 45, 218 68, 233 54 C 247 39, 263 63, 278 48 C 293 33, 312 58, 332 43 C 352 28, 372 53, 392 41"
-            fill="none" stroke="#5aa8ff" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.9"
-            stroke-dashoffset="0"
-            style="animation:ldraw 2s 0.4s ease-out forwards;stroke-dashoffset:800"/>
-      <!-- Model comparison badges -->
-      <g style="animation:nfade 0.4s 2s ease-out both;opacity:0">
-        <rect x="30" y="14" width="65" height="16" rx="2" fill="rgba(240,180,41,0.12)" stroke="rgba(240,180,41,0.3)" stroke-width="0.8"/>
-        <text x="36" y="25" fill="#f0b429" font-size="8" font-family="monospace">■ Actual BTC</text>
-        <rect x="105" y="14" width="72" height="16" rx="2" fill="rgba(90,168,255,0.12)" stroke="rgba(90,168,255,0.3)" stroke-width="0.8"/>
-        <text x="111" y="25" fill="#5aa8ff" font-size="8" font-family="monospace">- - Prophet</text>
-        <text x="188" y="25" fill="#3dd68c" font-size="8" font-family="monospace">MAPE ~0.29</text>
-      </g>
-      <!-- Model bars bottom -->
-      <rect x="30" y="175" width="52" height="16" rx="1" fill="rgba(248,113,113,0.18)" stroke="rgba(248,113,113,0.3)" stroke-width="0.7"/>
-      <text x="36" y="186" fill="#f87171" font-size="7.5" font-family="monospace">Lin.Reg.</text>
-      <rect x="90" y="175" width="42" height="16" rx="1" fill="rgba(240,180,41,0.35)" stroke="rgba(240,180,41,0.5)" stroke-width="0.7"/>
-      <text x="96" y="186" fill="#f0b429" font-size="7.5" font-family="monospace">Prophet★</text>
-      <rect x="140" y="175" width="54" height="16" rx="1" fill="rgba(90,168,255,0.18)" stroke="rgba(90,168,255,0.3)" stroke-width="0.7"/>
-      <text x="146" y="186" fill="#5aa8ff" font-size="7.5" font-family="monospace">XGBoost</text>
-      <rect x="202" y="175" width="28" height="16" rx="1" fill="rgba(90,168,255,0.18)" stroke="rgba(90,168,255,0.3)" stroke-width="0.7"/>
-      <text x="208" y="186" fill="#5aa8ff" font-size="7.5" font-family="monospace">RF</text>
-      <rect x="238" y="175" width="32" height="16" rx="1" fill="rgba(167,139,250,0.18)" stroke="rgba(167,139,250,0.3)" stroke-width="0.7"/>
-      <text x="244" y="186" fill="#a78bfa" font-size="7.5" font-family="monospace">LSTM</text>
-      <text x="285" y="186" fill="#8499bb" font-size="7" font-family="monospace">5-model benchmark</text>
-      <!-- Airflow icon placeholder -->
-      <text x="352" y="30" fill="#3dd68c" font-size="8" font-family="monospace" opacity="0.8">⟳ Airflow</text>
-      <text x="352" y="44" fill="#8499bb" font-size="7" font-family="monospace" opacity="0.7">every 5 min</text>
-      <text x="352" y="56" fill="#8499bb" font-size="7" font-family="monospace" opacity="0.7">on EC2</text>
-    </svg>`,
-    id: 'bitcoin',
-    cat: 'ts',
-    thumbClass: 'thumb-btc',
-    orb1: 'rgba(240,180,41,0.4)',
-    orb2: 'rgba(90,168,255,0.2)',
-    badge: 'Automated every 5 minutes',
-    metrics: ['5 models benchmarked', 'Prophet selected', 'MAPE ~0.29'],
-    type: 'Time-Series · Forecasting',
-    typeColor: 'var(--gold)',
-    tagColor: 'var(--gold)',
-    tagBorder: 'rgba(240,180,41,0.28)',
-    title: 'Real-Time Bitcoin Price Forecasting Pipeline',
-    period: 'OCT 2024 — DEC 2024',
-    desc: 'Automated Bitcoin price forecasting system that generates predictions every 5 minutes from live Binance data. Benchmarked Linear Regression, Prophet, XGBoost, Random Forest, and LSTM before selecting Prophet. Orchestrated via Apache Airflow on Amazon EC2.',
-    tags: ['Prophet', 'Apache Airflow', 'Amazon EC2', 'Binance API', 'ARIMA', 'XGBoost'],
-    github: 'https://github.com/KunakornMart/bitcoin-price-forecasting-pipeline',
-    highlights: [
-      'Automated forecast pipeline: predictions generated every 5 minutes',
-      'Benchmarked 5 models — LR, Prophet, XGBoost, RF, LSTM — before deployment',
-      'Prophet selected as production model (lowest average MAPE: ~0.29)',
-      'Full workflow scheduled and orchestrated via Apache Airflow on Amazon EC2',
-      'Rolling hourly MAPE tracking to monitor model drift under volatile conditions',
-      'Model serialized for reuse; live data via Binance API',
-    ],
-    stack: [
-      'Prophet (selected production model)',
-      'XGBoost · Random Forest · LSTM · ARIMA (benchmark)',
-      'Apache Airflow for pipeline orchestration',
-      'Amazon EC2 for production deployment',
-      'Binance API for live price data',
-      'Python · Docker',
-    ],
+    id:'bitcoin',cat:'ts',bg:'tbg-btc',
+    badge:'Every 5 Minutes · Automated',
+    metrics:['5 models benchmarked','Prophet selected','MAPE ~0.29'],
+    tc:'var(--gold)',pc:'var(--gold)',pb:'rgba(237,178,39,.25)',
+    type:'Time-Series · Forecasting',
+    title:'Real-Time Bitcoin Price Forecasting Pipeline',
+    period:'OCT 2024 — DEC 2024',
+    desc:'Automated BTC forecasting every 5 minutes from live Binance data. Benchmarked Linear Regression, Prophet, XGBoost, Random Forest, and LSTM. Prophet selected for production. Orchestrated via Apache Airflow on Amazon EC2.',
+    tags:['Prophet','Apache Airflow','Amazon EC2','Binance API','XGBoost','LSTM'],
+    github:'https://github.com/KunakornMart/DADS6005_FinalProject',
+    hi:['Live forecast pipeline — new prediction every 5 minutes from Binance API','Benchmarked 5 models before selecting Prophet — no blind model choice','Prophet: lowest MAPE ~0.29, selected as production model','Rolling hourly MAPE tracking to detect model drift under volatile conditions','Fully scheduled via Apache Airflow on Amazon EC2','Model serialized for reuse; end-to-end pipeline code available on GitHub'],
+    st:['Prophet (production model)','XGBoost · Random Forest · LSTM · ARIMA (benchmark)','Apache Airflow for pipeline orchestration','Amazon EC2 for deployment','Binance API · Python · Docker'],
+    svg:`<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><style>@keyframes ld{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}@keyframes fp{from{opacity:0}to{opacity:1}}</style><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#edb227" stop-opacity=".2"/><stop offset="100%" stop-color="#edb227" stop-opacity="0"/></linearGradient></defs><line x1="30" y1="40" x2="390" y2="40" stroke="#2e4060" stroke-width=".6"/><line x1="30" y1="80" x2="390" y2="80" stroke="#2e4060" stroke-width=".6"/><line x1="30" y1="120" x2="390" y2="120" stroke="#2e4060" stroke-width=".6"/><line x1="30" y1="160" x2="390" y2="160" stroke="#2e4060" stroke-width=".6"/><path d="M30 145 C55 132,72 148,92 122 C112 96,124 112,148 86 C168 60,182 72,198 56 C212 40,224 66,240 50 C255 34,272 62,290 46 C310 28,332 56,354 40 C372 24,386 50,400 38" fill="none" stroke="#edb227" stroke-width="2.4" stroke-dasharray="900" style="animation:ld 2.2s ease-out forwards"/><path d="M30 145 C55 132,72 148,92 122 C112 96,124 112,148 86 C168 60,182 72,198 56 C212 40,224 66,240 50 C255 34,272 62,290 46 C310 28,332 56,354 40 C372 24,386 50,400 38 L400 175 L30 175 Z" fill="url(#ga)"/><path d="M30 150 C55 138,74 152,94 128 C114 103,126 117,150 92 C170 66,184 76,200 62 C214 46,226 70,242 55 C256 38,274 66,292 50 C312 32,334 60,356 44 C374 28,388 54,400 42" fill="none" stroke="#529eff" stroke-width="1.6" stroke-dasharray="4,3" opacity=".9" style="animation:ld 2.2s .4s ease-out forwards;stroke-dashoffset:900"/><g style="animation:fp .4s 2.2s ease-out both;opacity:0"><rect x="30" y="14" width="72" height="16" rx="2" fill="rgba(237,178,39,.12)" stroke="rgba(237,178,39,.3)" stroke-width=".8"/><text x="36" y="25" fill="#edb227" font-size="8" font-family="JetBrains Mono,monospace">▰ Actual BTC</text><rect x="112" y="14" width="68" height="16" rx="2" fill="rgba(82,158,255,.12)" stroke="rgba(82,158,255,.3)" stroke-width=".8"/><text x="118" y="25" fill="#529eff" font-size="8" font-family="JetBrains Mono,monospace">-- Prophet</text><text x="190" y="25" fill="#2ecb7a" font-size="8" font-family="JetBrains Mono,monospace">MAPE≈0.29</text></g><rect x="30" y="178" width="54" height="14" rx="1" fill="rgba(240,110,110,.16)" stroke="rgba(240,110,110,.3)" stroke-width=".7"/><text x="36" y="188" fill="#f06f6f" font-size="7" font-family="JetBrains Mono,monospace">Lin.Reg.</text><rect x="90" y="178" width="50" height="14" rx="1" fill="rgba(237,178,39,.35)" stroke="rgba(237,178,39,.55)" stroke-width=".7"/><text x="96" y="188" fill="#edb227" font-size="7" font-family="JetBrains Mono,monospace">Prophet★</text><rect x="146" y="178" width="52" height="14" rx="1" fill="rgba(82,158,255,.16)" stroke="rgba(82,158,255,.3)" stroke-width=".7"/><text x="152" y="188" fill="#529eff" font-size="7" font-family="JetBrains Mono,monospace">XGBoost</text><rect x="204" y="178" width="30" height="14" rx="1" fill="rgba(82,158,255,.16)" stroke="rgba(82,158,255,.3)" stroke-width=".7"/><text x="210" y="188" fill="#529eff" font-size="7" font-family="JetBrains Mono,monospace">R.F.</text><rect x="240" y="178" width="32" height="14" rx="1" fill="rgba(155,125,248,.16)" stroke="rgba(155,125,248,.3)" stroke-width=".7"/><text x="246" y="188" fill="#9b7df8" font-size="7" font-family="JetBrains Mono,monospace">LSTM</text><text x="280" y="188" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace">5-model benchmark</text><text x="355" y="30" fill="#2ecb7a" font-size="8" font-family="JetBrains Mono,monospace">⟳ Airflow</text><text x="355" y="44" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace">5-min · EC2</text></svg>`
   },
   {
-    svg: `<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <style>
-          @keyframes flow{0%{stroke-dashoffset:24}100%{stroke-dashoffset:0}}
-          @keyframes blink2{0%,100%{opacity:1}50%{opacity:0.3}}
-          @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-        </style>
-      </defs>
-      <!-- Pipeline architecture diagram -->
-      <!-- KAFKA block -->
-      <rect x="18" y="70" width="72" height="72" rx="4" fill="rgba(61,214,140,0.1)" stroke="#3dd68c" stroke-width="1.2"/>
-      <text x="54" y="94" fill="#3dd68c" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">KAFKA</text>
-      <text x="54" y="107" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">3 brokers</text>
-      <text x="54" y="118" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">5 partitions</text>
-      <text x="54" y="129" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">8 topics</text>
-      <!-- animated dots on kafka -->
-      <circle cx="22" cy="74" r="3" fill="#3dd68c" opacity="0.8" style="animation:blink2 1.2s 0.0s infinite"/>
-      <circle cx="30" cy="74" r="3" fill="#3dd68c" opacity="0.8" style="animation:blink2 1.2s 0.4s infinite"/>
-      <circle cx="38" cy="74" r="3" fill="#3dd68c" opacity="0.8" style="animation:blink2 1.2s 0.8s infinite"/>
-      <!-- Arrow KAFKA → ksqlDB -->
-      <line x1="90" y1="106" x2="118" y2="106" stroke="#3dd68c" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow 0.8s linear infinite"/>
-      <polygon points="118,102 126,106 118,110" fill="#3dd68c"/>
-      <!-- ksqlDB block -->
-      <rect x="126" y="58" width="80" height="96" rx="4" fill="rgba(90,168,255,0.1)" stroke="#5aa8ff" stroke-width="1.2"/>
-      <text x="166" y="80" fill="#5aa8ff" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">ksqlDB</text>
-      <rect x="134" y="86" width="64" height="13" rx="2" fill="rgba(90,168,255,0.15)"/>
-      <text x="166" y="96" fill="#5aa8ff" font-size="7" font-family="monospace" text-anchor="middle">TRANSFORM</text>
-      <rect x="134" y="103" width="64" height="13" rx="2" fill="rgba(90,168,255,0.15)"/>
-      <text x="166" y="113" fill="#5aa8ff" font-size="7" font-family="monospace" text-anchor="middle">JOIN + ENRICH</text>
-      <rect x="134" y="120" width="64" height="13" rx="2" fill="rgba(90,168,255,0.15)"/>
-      <text x="166" y="130" fill="#5aa8ff" font-size="7" font-family="monospace" text-anchor="middle">WINDOWING</text>
-      <text x="134" y="146" fill="#8499bb" font-size="6.5" font-family="monospace">tumble·hop·session</text>
-      <!-- Arrow ksqlDB → Pinot -->
-      <line x1="206" y1="106" x2="234" y2="106" stroke="#5aa8ff" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow 0.8s 0.3s linear infinite"/>
-      <polygon points="234,102 242,106 234,110" fill="#5aa8ff"/>
-      <!-- Pinot block -->
-      <rect x="242" y="70" width="72" height="72" rx="4" fill="rgba(167,139,250,0.1)" stroke="#a78bfa" stroke-width="1.2"/>
-      <text x="278" y="94" fill="#a78bfa" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">PINOT</text>
-      <text x="278" y="107" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">Real-Time</text>
-      <text x="278" y="118" fill="#8499bb" font-size="7" font-family="monospace" text-anchor="middle">OLAP</text>
-      <text x="278" y="129" fill="#3dd68c" font-size="7" font-family="monospace" text-anchor="middle">&lt;1s query</text>
-      <!-- Arrow Pinot → Streamlit -->
-      <line x1="314" y1="106" x2="342" y2="106" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow 0.8s 0.6s linear infinite"/>
-      <polygon points="342,102 350,106 342,110" fill="#a78bfa"/>
-      <!-- Streamlit block -->
-      <rect x="350" y="70" width="38" height="72" rx="4" fill="rgba(240,180,41,0.1)" stroke="#f0b429" stroke-width="1.2"/>
-      <text x="369" y="94" fill="#f0b429" font-size="7.5" font-family="monospace" text-anchor="middle" font-weight="bold">STRM</text>
-      <text x="369" y="108" fill="#8499bb" font-size="6.5" font-family="monospace" text-anchor="middle">live</text>
-      <text x="369" y="119" fill="#8499bb" font-size="6.5" font-family="monospace" text-anchor="middle">dash</text>
-      <circle cx="369" cy="130" r="4" fill="#f0b429" opacity="0.7" style="animation:blink2 1s infinite"/>
-      <!-- Data source labels top -->
-      <text x="20" y="58" fill="#3dd68c" font-size="7.5" font-family="monospace" style="animation:fadeIn 0.5s 0.2s both;opacity:0">▶ PageView Events</text>
-      <text x="20" y="46" fill="#8499bb" font-size="7" font-family="monospace" style="animation:fadeIn 0.5s 0.4s both;opacity:0">▶ User Demographics</text>
-      <text x="20" y="34" fill="#8499bb" font-size="7" font-family="monospace" style="animation:fadeIn 0.5s 0.6s both;opacity:0">▶ Regional Reference</text>
-      <!-- Mini bar chart bottom (dashboard preview) -->
-      <text x="18" y="175" fill="#f0b429" font-size="8" font-family="monospace">Dashboard Preview →</text>
-      <rect x="18" y="180" width="20" height="24" rx="1" fill="rgba(90,168,255,0.5)"/>
-      <rect x="42" y="188" width="20" height="16" rx="1" fill="rgba(90,168,255,0.4)"/>
-      <rect x="66" y="183" width="20" height="21" rx="1" fill="rgba(90,168,255,0.55)"/>
-      <rect x="90" y="178" width="20" height="26" rx="1" fill="rgba(61,214,140,0.5)"/>
-      <rect x="114" y="185" width="20" height="19" rx="1" fill="rgba(90,168,255,0.35)"/>
-      <rect x="138" y="180" width="20" height="24" rx="1" fill="rgba(240,180,41,0.45)"/>
-      <!-- Region labels -->
-      <text x="20" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">TH</text>
-      <text x="44" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">CN</text>
-      <text x="68" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">JP</text>
-      <text x="92" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">US</text>
-      <text x="116" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">EU</text>
-      <text x="140" y="207" fill="#2e3d5a" font-size="6" font-family="monospace">SG</text>
-      <!-- rolling line -->
-      <path d="M 180 197 C 195 188, 210 195, 225 185 C 240 175, 255 182, 270 172 C 285 162, 300 170, 315 160 C 330 150, 345 158, 360 148 C 375 138, 390 145, 400 138"
-            fill="none" stroke="#3dd68c" stroke-width="1.5" opacity="0.8" stroke-dasharray="3,2"
-            style="animation:flow 1s linear infinite"/>
-      <text x="180" y="210" fill="#3dd68c" font-size="6.5" font-family="monospace">5-min rolling trend</text>
-    </svg>`,
-    id: 'streaming',
-    cat: 'data',
-    thumbClass: 'thumb-stream',
-    orb1: 'rgba(61,214,140,0.32)',
-    orb2: 'rgba(90,168,255,0.22)',
-    badge: 'End-to-end streaming pipeline',
-    metrics: ['3 sources · 8 topics', 'Sub-second queries', 'Live dashboard'],
-    type: 'Data Engineering · Streaming',
-    typeColor: 'var(--green)',
-    tagColor: 'var(--green)',
-    tagBorder: 'rgba(61,214,140,0.28)',
-    title: 'Real-Time Data Streaming & Analytics Platform',
-    period: 'AUG 2024 — OCT 2024',
-    desc: 'End-to-end streaming analytics pipeline: Kafka (3 brokers, 5 partitions) → ksqlDB (transform, join, windowing) → Apache Pinot (sub-second OLAP) → Streamlit dashboard refreshing every few seconds with region/gender filtering.',
-    tags: ['Apache Kafka', 'ksqlDB', 'Apache Pinot', 'Streamlit', 'Docker', 'Python'],
-    github: 'https://github.com/KunakornMart/realtime-streaming-analytics-platform',
-    highlights: [
-      '3 data sources: page views (datagen), user demographics (datagen), regional reference data (custom Python script)',
-      'Kafka cluster: 3 brokers, 5 partitions, Schema Registry — 8 topics total',
-      'ksqlDB: transform (topic4), 3-way join/enrich (topic5), tumbling/hopping/session windows (topics 6–8)',
-      'Apache Pinot: real-time OLAP storage, sub-second SQL queries from Streamlit',
-      'Streamlit dashboard: page visits by region, session length, 5-min rolling trend, region/gender filters',
-      'Deployed on Amazon EC2 via Docker Compose',
-    ],
-    stack: [
-      'Apache Kafka (3 brokers, 5 partitions, Schema Registry)',
-      'ksqlDB for stream transformation, joins, and windowing',
-      'Apache Pinot for real-time OLAP queries',
-      'Streamlit for continuously updated dashboard',
-      'Python 3 · Docker Compose · Amazon EC2',
-    ],
-  },
+    id:'streaming',cat:'data',bg:'tbg-str',
+    badge:'End-to-end Streaming Pipeline',
+    metrics:['3 sources · 8 topics','Sub-second OLAP','Live dashboard'],
+    tc:'var(--green)',pc:'var(--green)',pb:'rgba(46,203,122,.25)',
+    type:'Data Engineering · Streaming',
+    title:'Real-Time Data Streaming & Analytics Platform',
+    period:'AUG 2024 — OCT 2024',
+    desc:'Full streaming pipeline: Kafka (3 brokers, 5 partitions) → ksqlDB (transform, join, windowing) → Apache Pinot (sub-second OLAP) → Streamlit with live region and gender filtering.',
+    tags:['Apache Kafka','ksqlDB','Apache Pinot','Streamlit','Docker','Amazon EC2'],
+    github:'https://github.com/KunakornMart/realtime-streaming-analytics-platform',
+    hi:['3 data sources: page views, user demographics, regional reference (Python producer)','Kafka cluster: 3 brokers, 5 partitions, Schema Registry — 8 topics total','ksqlDB: stream transform (topic4), 3-way join+enrich (topic5), windowing (topics 6–8)','Apache Pinot: real-time OLAP, sub-second SQL queries direct from Streamlit','Streamlit: page visits by region, session length, 5-min rolling trend, live filters','Fully containerized via Docker Compose, deployed on Amazon EC2'],
+    st:['Apache Kafka (3 brokers, 5 partitions, Schema Registry)','ksqlDB for stream transformation, joins, and windowing','Apache Pinot for real-time OLAP queries','Streamlit for continuously updating live dashboard','Python · Docker Compose · Amazon EC2'],
+    svg:`<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><defs><style>@keyframes flow{0%{stroke-dashoffset:20}100%{stroke-dashoffset:0}}@keyframes blk{0%,100%{opacity:1}50%{opacity:.25}}@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style></defs><rect x="14" y="64" width="76" height="90" rx="4" fill="rgba(46,203,122,.09)" stroke="#2ecb7a" stroke-width="1.2"/><text x="52" y="90" fill="#2ecb7a" font-size="9.5" font-family="JetBrains Mono,monospace" text-anchor="middle" font-weight="bold">KAFKA</text><text x="52" y="104" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">3 brokers</text><text x="52" y="115" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">5 partitions</text><text x="52" y="126" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">8 topics</text><text x="52" y="140" fill="#2ecb7a" font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">schema reg.</text><circle cx="18" cy="68" r="3" fill="#2ecb7a" style="animation:blk 1.2s 0s infinite"/><circle cx="26" cy="68" r="3" fill="#2ecb7a" style="animation:blk 1.2s .4s infinite"/><circle cx="34" cy="68" r="3" fill="#2ecb7a" style="animation:blk 1.2s .8s infinite"/><line x1="90" y1="109" x2="118" y2="109" stroke="#2ecb7a" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow .8s linear infinite"/><polygon points="118,105 126,109 118,113" fill="#2ecb7a"/><rect x="126" y="52" width="82" height="114" rx="4" fill="rgba(82,158,255,.09)" stroke="#529eff" stroke-width="1.2"/><text x="167" y="76" fill="#529eff" font-size="9.5" font-family="JetBrains Mono,monospace" text-anchor="middle" font-weight="bold">ksqlDB</text><rect x="134" y="83" width="66" height="13" rx="2" fill="rgba(82,158,255,.15)"/><text x="167" y="93" fill="#529eff" font-size="7.5" font-family="JetBrains Mono,monospace" text-anchor="middle">TRANSFORM</text><rect x="134" y="100" width="66" height="13" rx="2" fill="rgba(82,158,255,.15)"/><text x="167" y="110" fill="#529eff" font-size="7.5" font-family="JetBrains Mono,monospace" text-anchor="middle">JOIN+ENRICH</text><rect x="134" y="117" width="66" height="13" rx="2" fill="rgba(82,158,255,.15)"/><text x="167" y="127" fill="#529eff" font-size="7.5" font-family="JetBrains Mono,monospace" text-anchor="middle">WINDOWING</text><text x="135" y="149" fill="#7a94bb" font-size="6.5" font-family="JetBrains Mono,monospace">tumble·hop·session</text><line x1="208" y1="109" x2="236" y2="109" stroke="#529eff" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow .8s .3s linear infinite"/><polygon points="236,105 244,109 236,113" fill="#529eff"/><rect x="244" y="64" width="76" height="90" rx="4" fill="rgba(155,125,248,.09)" stroke="#9b7df8" stroke-width="1.2"/><text x="282" y="88" fill="#9b7df8" font-size="9.5" font-family="JetBrains Mono,monospace" text-anchor="middle" font-weight="bold">PINOT</text><text x="282" y="104" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">Real-Time</text><text x="282" y="115" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">OLAP</text><text x="282" y="126" fill="#2ecb7a" font-size="7" font-family="JetBrains Mono,monospace" text-anchor="middle">&lt;1s query</text><line x1="320" y1="109" x2="348" y2="109" stroke="#9b7df8" stroke-width="1.5" stroke-dasharray="4,3" style="animation:flow .8s .6s linear infinite"/><polygon points="348,105 356,109 348,113" fill="#9b7df8"/><rect x="356" y="78" width="38" height="62" rx="4" fill="rgba(237,178,39,.09)" stroke="#edb227" stroke-width="1.2"/><text x="375" y="100" fill="#edb227" font-size="8" font-family="JetBrains Mono,monospace" text-anchor="middle">STRM</text><text x="375" y="115" fill="#7a94bb" font-size="6.5" font-family="JetBrains Mono,monospace" text-anchor="middle">live</text><circle cx="375" cy="128" r="4" fill="#edb227" opacity=".7" style="animation:blk 1.1s infinite"/><text x="14" y="54" fill="#2ecb7a" font-size="7.5" font-family="JetBrains Mono,monospace" style="animation:fin .4s .2s both;opacity:0">▶ PageView Events</text><text x="14" y="42" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace" style="animation:fin .4s .4s both;opacity:0">▶ User Demographics</text><text x="14" y="30" fill="#7a94bb" font-size="7" font-family="JetBrains Mono,monospace" style="animation:fin .4s .6s both;opacity:0">▶ Regional Reference</text><rect x="14" y="180" width="22" height="24" rx="1" fill="rgba(82,158,255,.5)"/><rect x="40" y="187" width="22" height="17" rx="1" fill="rgba(82,158,255,.4)"/><rect x="66" y="182" width="22" height="22" rx="1" fill="rgba(82,158,255,.55)"/><rect x="92" y="176" width="22" height="28" rx="1" fill="rgba(46,203,122,.55)"/><rect x="118" y="184" width="22" height="20" rx="1" fill="rgba(82,158,255,.35)"/><path d="M168 196 C185 186,202 192,220 182 C237 172,254 178,272 167 C290 155,308 162,326 152 C344 141,362 148,380 138" fill="none" stroke="#2ecb7a" stroke-width="1.6" opacity=".9" stroke-dasharray="3,2" style="animation:flow 1s linear infinite"/><text x="168" y="214" fill="#2ecb7a" font-size="7" font-family="JetBrains Mono,monospace">5-min rolling trend</text></svg>`
+  }
 ];
 
-// ─── RENDER PROJECTS ───
-const grid = document.getElementById('proj-grid');
-grid.innerHTML = PROJECTS.map(p => `
-  <article class="pcard reveal" data-cat="${p.cat}">
-    <div class="pcard-thumb">
-      <div class="pcard-thumb-bg ${p.thumbClass}"></div>
-      <div class="thumb-grid-overlay"></div>
-      ${p.svg ? `<div class="thumb-svg-wrap" style="position:absolute;inset:0;overflow:hidden">${p.svg}</div>` : `
-      <div class="thumb-orb o1" style="background:radial-gradient(circle,${p.orb1},transparent 65%)"></div>
-      <div class="thumb-orb o2" style="background:radial-gradient(circle,${p.orb2},transparent 65%)"></div>
-      `}
-      <div class="thumb-content" style="position:relative;z-index:2">
-        <div class="thumb-badge">${p.badge}</div>
-        <div class="thumb-metrics">${p.metrics.map(m=>`<span class="thumb-metric">${m}</span>`).join('')}</div>
+/* ══════════════════════════════════════════════════════
+   RENDER PROJECTS
+══════════════════════════════════════════════════════ */
+const pgrid = document.getElementById('pgrid');
+pgrid.innerHTML = PROJECTS.map(p => `
+  <article class="pj rv" data-cat="${p.cat}">
+    <div class="pj-thumb">
+      <div class="pj-bg ${p.bg}"></div>
+      <div class="tgrid-ov"></div>
+      <div class="tsvg-w">${p.svg}</div>
+      <div class="t-cov">
+        <div class="t-badge">${p.badge}</div>
+        <div class="t-mets">${p.metrics.map(m=>`<span class="t-met">${m}</span>`).join('')}</div>
       </div>
     </div>
-    <div class="pcard-body">
-      <div class="pcard-type" style="color:${p.typeColor}">${p.type}</div>
-      <div class="pcard-title">${p.title}</div>
-      <div class="pcard-period">${p.period}</div>
-      <p class="pcard-desc">${p.desc}</p>
-      <div class="pcard-tags">${p.tags.map(t=>`<span class="ptag" style="color:${p.tagColor};border-color:${p.tagBorder}">${t}</span>`).join('')}</div>
-      <div class="pcard-actions">
-        <button class="detail-btn" data-open="${p.id}">Details ↗</button>
-        ${p.github ? `<a class="plink" href="${p.github}" target="_blank">GitHub →</a>` : ''}
+    <div class="pj-body">
+      <div class="pj-type" style="color:${p.tc}">${p.type}</div>
+      <div class="pj-title">${p.title}</div>
+      <div class="pj-per">${p.period}</div>
+      <p class="pj-desc">${p.desc}</p>
+      <div class="pj-tags">${p.tags.map(t=>`<span class="pjtag" style="color:${p.pc};border-color:${p.pb}">${t}</span>`).join('')}</div>
+      <div class="pj-acts">
+        <button class="dbtn" data-open="${p.id}">Details ↗</button>
+        ${p.github ? `<a class="pl pl-gh" href="${p.github}" target="_blank">GitHub →</a>` : ''}
+        ${p.yt_en ? `<a class="pl pl-en" href="${p.yt_en}" target="_blank">▶ EN Podcast</a>` : ''}
+        ${p.yt_th ? `<a class="pl pl-th" href="${p.yt_th}" target="_blank">▶ TH Podcast</a>` : ''}
       </div>
     </div>
   </article>
 `).join('');
 
-// ─── FILTER ───
-document.querySelectorAll('.filt-btn').forEach(btn => {
+// observe + tilt new cards
+document.querySelectorAll('.pj.rv').forEach(el => ro.observe(el));
+tilt('.pj', 9);
+document.querySelectorAll('.pj a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => curring.classList.add('hov'));
+  el.addEventListener('mouseleave', () => curring.classList.remove('hov'));
+});
+
+/* ── FILTER ──────────────────────────────────────────── */
+document.querySelectorAll('.fb').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.filt-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
     const f = btn.dataset.f;
-    document.querySelectorAll('.pcard').forEach(card => {
-      const show = f === 'all' || card.dataset.cat === f;
-      card.style.display = show ? 'flex' : 'none';
+    document.querySelectorAll('.pj').forEach(c => {
+      c.style.display = (f==='all'||c.dataset.cat===f) ? 'flex' : 'none';
     });
   });
 });
 
-// ─── MODAL ───
-const modal    = document.getElementById('modal');
-const mThumb   = document.getElementById('modal-thumb');
-const mMeta    = document.getElementById('modal-meta');
-const mTitle   = document.getElementById('modal-title');
-const mDesc    = document.getElementById('modal-desc');
-const mTags    = document.getElementById('modal-tags');
-const mHigh    = document.getElementById('modal-highlights');
-const mStack   = document.getElementById('modal-stack');
-const mLinks   = document.getElementById('modal-links');
+/* ── MODAL ───────────────────────────────────────────── */
+const modal  = document.getElementById('modal');
+const mthumb = document.getElementById('mthumb');
+const mmeta  = document.getElementById('mmeta');
+const mtitle = document.getElementById('mtitle');
+const mdesc  = document.getElementById('mdesc');
+const mtags  = document.getElementById('mtags');
+const mhigh  = document.getElementById('mhigh');
+const mstack = document.getElementById('mstack');
+const mlinks = document.getElementById('mlinks');
 
 function openModal(id) {
-  const p = PROJECTS.find(x => x.id === id);
-  if (!p) return;
-  mThumb.innerHTML = `
-    <div class="pcard-thumb-bg ${p.thumbClass}" style="position:absolute;inset:0"></div>
-    <div class="thumb-grid-overlay"></div>
-    <div class="thumb-orb o1" style="background:radial-gradient(circle,${p.orb1},transparent 65%);width:260px;height:260px"></div>
-    <div class="thumb-orb o2" style="background:radial-gradient(circle,${p.orb2},transparent 65%);width:200px;height:200px"></div>
-    <div class="thumb-content"><div class="thumb-badge">${p.badge}</div>
-    <div class="thumb-metrics">${p.metrics.map(m=>`<span class="thumb-metric">${m}</span>`).join('')}</div></div>
-  `;
-  mMeta.textContent   = `${p.type}  ·  ${p.period}`;
-  mTitle.textContent  = p.title;
-  mDesc.textContent   = p.desc;
-  mTags.innerHTML     = p.tags.map(t=>`<span class="ptag" style="color:${p.tagColor};border-color:${p.tagBorder}">${t}</span>`).join('');
-  mHigh.innerHTML     = p.highlights.map(h=>`<li>${h}</li>`).join('');
-  mStack.innerHTML    = p.stack.map(s=>`<li>${s}</li>`).join('');
-  mLinks.innerHTML    = `
-    ${p.github ? `<a class="btn btn-primary" href="${p.github}" target="_blank">GitHub →</a>` : ''}
-    <button class="btn btn-ghost" id="m-close-btn">Close</button>
-  `;
+  const p = PROJECTS.find(x => x.id === id); if(!p) return;
+  mthumb.innerHTML = `
+    <div class="pj-bg ${p.bg}" style="position:absolute;inset:0"></div>
+    <div class="tgrid-ov"></div>
+    <div class="tsvg-w">${p.svg}</div>
+    <div class="t-cov">
+      <div class="t-badge">${p.badge}</div>
+      <div class="t-mets">${p.metrics.map(m=>`<span class="t-met">${m}</span>`).join('')}</div>
+    </div>`;
+  mmeta.textContent  = `${p.type}  ·  ${p.period}`;
+  mtitle.textContent = p.title;
+  mdesc.textContent  = p.desc;
+  mtags.innerHTML    = p.tags.map(t=>`<span class="pjtag" style="color:${p.pc};border-color:${p.pb}">${t}</span>`).join('');
+  mhigh.innerHTML    = p.hi.map(h=>`<li>${h}</li>`).join('');
+  mstack.innerHTML   = p.st.map(s=>`<li>${s}</li>`).join('');
+
+  mlinks.innerHTML = `
+    ${p.github ? `<a class="btn btn-solid" href="${p.github}" target="_blank" style="font-size:10px;padding:11px 22px">GitHub →</a>` : ''}
+    ${(p.yt_en || p.yt_th) ? `
+      <div class="yt-blk">
+        <div class="yt-lbl">📺 Research Podcast</div>
+        <div class="yt-row">
+          ${p.yt_en ? `<a class="btn btn-yt-en" href="${p.yt_en}" target="_blank" style="font-size:10px;padding:11px 20px"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2a31 31 0 000 11.6 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1 31 31 0 000-11.6zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>Watch in English</a>` : ''}
+          ${p.yt_th ? `<a class="btn btn-yt-th" href="${p.yt_th}" target="_blank" style="font-size:10px;padding:11px 20px"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2a31 31 0 000 11.6 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1 31 31 0 000-11.6zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>Watch in Thai</a>` : ''}
+        </div>
+      </div>` : ''}
+    <button class="btn btn-ghost" id="mbtn-close" style="font-size:10px;padding:11px 20px">Close</button>`;
+
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
-  document.getElementById('m-close-btn').addEventListener('click', closeModal);
+  document.getElementById('mbtn-close').addEventListener('click', closeModal);
 }
 function closeModal() {
   modal.classList.remove('open');
   document.body.style.overflow = '';
 }
-
-document.addEventListener('click', e => {
-  const btn = e.target.closest('[data-open]');
-  if (btn) openModal(btn.dataset.open);
-});
-document.getElementById('modal-close').addEventListener('click', closeModal);
-modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-// ─── SCROLL REVEAL ───
-const ro = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('vis'), i * 80);
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-// ─── ACTIVE NAV ───
-const navLinks = document.querySelectorAll('.nav-links a');
-const sections = document.querySelectorAll('section[id]');
-window.addEventListener('scroll', () => {
-  let cur = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
-  navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--cyan)' : '';
-  });
-});
-
-// ─── STAR CANVAS ───
-const canvas = document.getElementById('canvas');
-const ctx    = canvas.getContext('2d');
-
-function resize() {
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-const STARS = Array.from({ length: 280 }, () => ({
-  x:  Math.random() * canvas.width,
-  y:  Math.random() * canvas.height,
-  r:  Math.random() * 1.3 + 0.2,
-  a:  Math.random(),
-  da: (Math.random() * 0.004 + 0.001) * (Math.random() < 0.5 ? 1 : -1),
-  dx: (Math.random() - 0.5) * 0.08,
-  dy: (Math.random() - 0.5) * 0.08,
-}));
-
-// Shooting stars
-const SHOOTS = [];
-function spawnShoot() {
-  SHOOTS.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height * 0.5,
-    len: 90 + Math.random() * 80,
-    speed: 10 + Math.random() * 10,
-    angle: Math.PI / 5,
-    life: 1,
-  });
-  setTimeout(spawnShoot, 4000 + Math.random() * 6000);
-}
-spawnShoot();
-
-function drawCanvas() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // Stars
-  STARS.forEach(s => {
-    s.a += s.da;
-    if (s.a >= 1 || s.a <= 0) s.da *= -1;
-    s.x += s.dx; s.y += s.dy;
-    if (s.x < 0) s.x = canvas.width;
-    if (s.x > canvas.width) s.x = 0;
-    if (s.y < 0) s.y = canvas.height;
-    if (s.y > canvas.height) s.y = 0;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(168,212,255,${s.a * 0.65})`;
-    ctx.fill();
-  });
-
-  // Subtle connection lines between close stars (only nearest 80)
-  const nearby = STARS.slice(0, 80);
-  for (let i = 0; i < nearby.length; i++) {
-    for (let j = i + 1; j < nearby.length; j++) {
-      const dx = nearby[i].x - nearby[j].x;
-      const dy = nearby[i].y - nearby[j].y;
-      const d  = Math.sqrt(dx * dx + dy * dy);
-      if (d < 110) {
-        ctx.beginPath();
-        ctx.moveTo(nearby[i].x, nearby[i].y);
-        ctx.lineTo(nearby[j].x, nearby[j].y);
-        ctx.strokeStyle = `rgba(90,168,255,${(1 - d / 110) * 0.1})`;
-        ctx.lineWidth = 0.6;
-        ctx.stroke();
-      }
-    }
-  }
-
-  // Shooting stars
-  for (let i = SHOOTS.length - 1; i >= 0; i--) {
-    const s = SHOOTS[i];
-    s.life -= 0.018;
-    s.x += Math.cos(s.angle) * s.speed;
-    s.y += Math.sin(s.angle) * s.speed;
-    if (s.life <= 0) { SHOOTS.splice(i, 1); continue; }
-    const grad = ctx.createLinearGradient(
-      s.x - Math.cos(s.angle) * s.len, s.y - Math.sin(s.angle) * s.len,
-      s.x, s.y
-    );
-    grad.addColorStop(0, 'transparent');
-    grad.addColorStop(1, `rgba(200,230,255,${s.life * 0.8})`);
-    ctx.beginPath();
-    ctx.moveTo(s.x - Math.cos(s.angle) * s.len, s.y - Math.sin(s.angle) * s.len);
-    ctx.lineTo(s.x, s.y);
-    ctx.strokeStyle = grad;
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-  }
-
-  requestAnimationFrame(drawCanvas);
-}
-drawCanvas();
-
-// ─── SMOOTH SCROLL ───
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
-  });
-});
+document.addEventListener('click', e => { const b=e.target.closest('[data-open]'); if(b) openModal(b.dataset.open); });
+document.getElementById('mclose').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if(e.target===modal) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
 </script>
 </body>
 </html>
